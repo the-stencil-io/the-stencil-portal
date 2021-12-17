@@ -26,7 +26,7 @@ const Tabs: React.FC<{}> = () => {
     return (<MuiTabs value={active} onChange={handleTabChange} variant="scrollable" scrollButtons="auto"
       sx={{
         "& .MuiTabs-indicator": {
-          backgroundColor: theme.palette.uiElements.main,
+          backgroundColor: theme.palette.primary.main,
           marginRight: "49px"
         }
       }
@@ -37,16 +37,16 @@ const Tabs: React.FC<{}> = () => {
           <MuiTab key={index} value={index} wrapped={true}
             label={tab.label}
             iconPosition="end"
-            sx={{ minHeight: 'unset', color: "mainContent.dark", "&:focus": { color: "uiElements.main" } }}
+            sx={{ minHeight: 'unset', color: "primary.dark", "&:focus": { color: "primary.main" } }}
             icon={(<>
               {tab.icon ? tab.icon : null}
               <CloseIcon color="disabled"
                 onClick={(e) => handleTabClose(e, tab)}
                 sx={{
                   m: 0,
-                  color: "uiElements.main",
+                  color: "primary.main",
                   "&:hover": {
-                    color: "mainContent.dark"
+                    color: "primary.dark"
                   }
                 }}
               />
