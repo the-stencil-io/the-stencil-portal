@@ -23,13 +23,13 @@ const toolbarStyle: SxProps = {
   position: "fixed",
   height: "100%"
 };
-const secondaryStyle: SxProps = { 
-  width: drawerWidth.expanded, 
-  marginLeft: `${drawerWidth.collapsed + 1}px`, 
-  height: "100%" 
+const secondaryStyle: SxProps = {
+  width: drawerWidth.expanded,
+  marginLeft: `${drawerWidth.collapsed + 1}px`,
+  height: "100%"
 };
-const mainStyle: (drawerOpen: boolean) => SxProps = (drawerOpen) => (drawerOpen ? 
-  { flexGrow: 1, overflow: "auto", height: "calc(100vh - 64px)", width: "calc(100vw - 500px)"} : 
+const mainStyle: (drawerOpen: boolean) => SxProps = (drawerOpen) => (drawerOpen ?
+  { flexGrow: 1, overflow: "auto", height: "calc(100vh - 64px)", width: "calc(100vw - 500px)" } :
   { flexGrow: 1, overflow: "auto", marginLeft: '60px', height: "calc(100vh - 64px)" });
 
 const drawerStyle: SxProps = { display: 'flex', overflowY: "scroll", height: "100vh" };
@@ -54,15 +54,12 @@ const Container: React.FC<ContainerProps> = (components) => {
     <CssBaseline />
     <StyledAppBar position="fixed" open={drawerOpen} drawerWidth={drawerWidth}>
       <Toolbar>
-        <Typography noWrap component="h1" variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
-          <Tabs />
-        </Typography>
+        {toolbarWindow}
       </Toolbar>
     </StyledAppBar>
 
     <StyledDrawer variant="permanent" open={drawerOpen} drawerWidth={drawerWidth}>
       <Box sx={drawerStyle}>
-        <Box sx={toolbarStyle}>{toolbarWindow}</Box>
         {drawerOpen ? (<Box sx={secondaryStyle}>{secondaryWindow}</Box>) : null}
       </Box>
     </StyledDrawer>

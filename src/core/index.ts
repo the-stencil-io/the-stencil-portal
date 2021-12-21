@@ -23,7 +23,7 @@ import {
 // import { StyledDialog, StyledDialogProps } from './styles/StyledDialog';
 
 
-declare namespace Portal {
+declare namespace Portal { //ONLY can export interfaces and types with 'declare namespace'. DOES NOT COMPILE with constants
   export { 
     AppProviderProps, App, AppId,
     DrawerContextType, DrawerSession, DrawerActions,
@@ -35,7 +35,7 @@ declare namespace Portal {
   export {  }
 }
 
-namespace Portal {
+namespace Portal { //export the constants
   export const Provider = AppProvider;
   export const useDrawer = useDrawerAlias;
   export const useTabs = useTabsAlias;
