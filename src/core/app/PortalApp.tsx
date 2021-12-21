@@ -33,7 +33,7 @@ const Secondary: React.FC<{}> = () => {
 const Toolbar: React.FC<{}> = () => {
   
   const {actions, session} = Portal.useDrawer();
-  
+  console.log("init toolbar");
   return (
     <div>
       <IconButton color="secondary" onClick={() => actions.handleDrawerOpen(!session.drawer)}>
@@ -53,8 +53,9 @@ const PortalApp: React.FC<{}> = (props) => {
       toolbar: Toolbar
     }
   }
+  console.log("test-x-z");
 
-  return (<Portal.Provider config={{ defaultLocale: "en", dev: true, content: { url: "" } }}>
+  return (<Portal.Provider config={{ defaultLocale: "en", dev: true, content: { url: "http://localhost:8080/q/ide-services" } }}>
     {app}
   </Portal.Provider>);
 }

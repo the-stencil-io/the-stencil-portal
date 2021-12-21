@@ -36,7 +36,8 @@ const AppInit: React.FC<{ children: API.App }> = ({ children }) => {
   const app = children;
 
   console.log(`portal: app context init: '${app.id}'`);
-  return (<CreateContainer app={app} />);
+  const container = React.useMemo(() => (<CreateContainer app={app} />), [app]);
+  return (<>{container}</>);
 }
 
 

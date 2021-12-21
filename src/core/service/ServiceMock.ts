@@ -19,6 +19,8 @@ class ServiceMock implements Api.Service, Store {
 
 
   async getSite(locale: string): Promise<Api.Site> {
+    return FallbackSites(locale).maintainance;
+    /*
     return this.fetch<Api.Site>(this._config.content.url + "?locale=" + locale)
       .then(site => {
         if (site) {
@@ -26,6 +28,7 @@ class ServiceMock implements Api.Service, Store {
         }
         return FallbackSites(locale).maintainance;
       });
+      */
   }
   getSiteLoading(locale: string): Api.Site {
     return FallbackSites(locale).loading;
