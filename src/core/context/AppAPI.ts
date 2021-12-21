@@ -1,11 +1,15 @@
 type AppId = string;
 
 interface App {
-  id: AppId; 
+  id: AppId;
   components: {
     toolbar: React.ElementType<ToolbarProps>;
     primary: React.ElementType<PrimaryProps>;
     secondary: React.ElementType<SecondaryProps>;
+  },
+  config: {
+    drawerWidth: number;
+    toolbarHeight: number;
   }
 }
 

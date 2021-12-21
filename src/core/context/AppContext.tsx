@@ -27,7 +27,7 @@ const CreateContainer: React.FC<{ app: API.App }> = ({ app }) => {
 
   console.log(`portal: app container/layout Init: '${app.id}'`);
   return (
-    <Mobile main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} />
+    <Mobile main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config} />
   );
 }
 

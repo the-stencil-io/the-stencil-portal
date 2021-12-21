@@ -24,9 +24,7 @@ const Secondary: React.FC<{}> = () => {
 
     <div>
       <p>Topic 1</p>
-
       <p>Topic 2</p>
-
       <p>Topic 3</p>
     </div>);
 }
@@ -50,7 +48,12 @@ const PortalApp: React.FC<{}> = (props) => {
     components: {
       primary: Primary,
       secondary: Secondary,
-      toolbar: Toolbar
+      toolbar: Toolbar,
+      
+    },
+    config: {
+      drawerWidth: 500,
+      toolbarHeight: 300
     }
   }
   return (<Portal.Provider config={{ defaultLocale: "en", dev: true, content: { url: "http://localhost:8080/q/ide-services" } }}>

@@ -1,38 +1,28 @@
 import React from 'react';
 
-import { CssBaseline, Toolbar, Typography, Box } from '@mui/material';
+import { CssBaseline, Toolbar, Box } from '@mui/material';
 import { SxProps } from '@mui/system';
 import { styled } from "@mui/material/styles";
 
 import StyledAppBar from './Appbar';
 import StyledDrawer from './Drawer';
-import Tabs from './Tabs';
 import { useDrawer } from '../context/drawer/DrawerContext';
 
 interface ContainerProps {
   main: React.ReactElement;
   secondary: React.ReactElement;
   toolbar: React.ReactElement;
+  config: {
+    drawerWidth: number;
+    toolbarHeight: number;
+  }
 };
 
-const drawerWidth = { expanded: 500, collapsed: 56 };
-const toolbarStyle: SxProps = {
-  backgroundColor: "primary.main",
-  color: "primary.contrastText",
-  overflow: "hidden",
-  position: "fixed",
-  height: "100%"
-};
-const secondaryStyle: SxProps = {
-  width: drawerWidth.expanded,
-  marginLeft: `${drawerWidth.collapsed + 1}px`,
-  height: "100%"
-};
-const mainStyle: (drawerOpen: boolean) => SxProps = (drawerOpen) => (drawerOpen ?
-  { flexGrow: 1, overflow: "auto", height: "calc(100vh - 64px)", width: "calc(100vw - 500px)" } :
-  { flexGrow: 1, overflow: "auto", marginLeft: '60px', height: "calc(100vh - 64px)" });
 
-const drawerStyle: SxProps = { display: 'flex', overflowY: "scroll", height: "100vh" };
+
+const mainStyle: (drawerOpen: boolean, drawerWidth: number) => SxProps = (drawerOpen, drawerWidth) => (drawerOpen ?
+  { flexGrow: 1, overflow: "auto", height: "calc(100vh - 64px)", width: `calc(100vw - ${drawerWidth}px)` } :
+  { flexGrow: 1, overflow: "auto", height: "calc(100vh - 64px)", marginLeft: '0px' });
 
 
 const StyledMain = styled("main")(() => ({
@@ -52,21 +42,22 @@ const Container: React.FC<ContainerProps> = (components) => {
 
   return (<Box sx={{ display: 'flex', height: "100vh" }}>
     <CssBaseline />
-    <StyledAppBar position="fixed" open={drawerOpen} drawerWidth={drawerWidth}>
+    <StyledAppBar position="fixed">
       <Toolbar>
         {toolbarWindow}
       </Toolbar>
     </StyledAppBar>
 
-    <StyledDrawer variant="permanent" open={drawerOpen} drawerWidth={drawerWidth}>
-      <Box sx={drawerStyle}>
-        {drawerOpen ? (<Box sx={secondaryStyle}>{secondaryWindow}</Box>) : null}
+    <StyledDrawer variant="permanent" open={drawerOpen} drawerWidth={components.config.drawerWidth}>
+      <Toolbar />
+      <Box sx={{ display: 'flex', overflowY: "scroll", height: "100vh" }}>
+        {drawerOpen ? (<Box sx={{ width: components.config.drawerWidth, height: "100%" }}>{secondaryWindow}</Box>) : null}
       </Box>
     </StyledDrawer>
 
     <StyledMain>
       <Toolbar />
-      <Box sx={mainStyle(drawerOpen)}>{mainWindow}</Box>
+      <Box sx={mainStyle(drawerOpen, components.config.drawerWidth)}>{mainWindow}</Box>
     </StyledMain>
   </Box>);
 }
