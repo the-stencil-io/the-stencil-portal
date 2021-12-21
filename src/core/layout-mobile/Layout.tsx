@@ -44,20 +44,20 @@ const Container: React.FC<ContainerProps> = (components) => {
   return (<Box sx={{ display: 'flex', height: "100vh" }}>
     <CssBaseline />
     <StyledAppBar position="fixed">
-      <StyledToolbar toolbarheight={30}>
+      <StyledToolbar toolbarHeight={components.config.toolbarHeight} sx={{alignItems: "self-start"}}>
         {toolbarWindow}
       </StyledToolbar>
     </StyledAppBar>
 
     <StyledDrawer variant="permanent" open={drawerOpen} drawerWidth={components.config.drawerWidth}>
-      <StyledToolbar toolbarheight={30}/>
+      <StyledToolbar toolbarHeight={components.config.toolbarHeight}/>
       <Box sx={{ display: 'flex', overflowY: "scroll", height: "100vh" }}>
         {drawerOpen ? (<Box sx={{ width: components.config.drawerWidth, height: "100%" }}>{secondaryWindow}</Box>) : null}
       </Box>
     </StyledDrawer>
 
     <StyledMain>
-      <StyledToolbar toolbarheight={30}/>
+      <StyledToolbar toolbarHeight={components.config.toolbarHeight}/>
       <Box sx={mainStyle(drawerOpen, components.config.drawerWidth)}>{mainWindow}</Box>
     </StyledMain>
   </Box>);

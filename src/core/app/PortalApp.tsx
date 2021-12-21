@@ -1,8 +1,6 @@
 import React from 'react';
-import IconButton from '@mui/material/IconButton';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-
 import Portal from '../'
+import PortalAppHeader from './PortalAppHeader';
 
 
 
@@ -29,15 +27,12 @@ const Secondary: React.FC<{}> = () => {
     </div>);
 }
 const Toolbar: React.FC<{}> = () => {
-  
-  const {actions, session} = Portal.useDrawer();
+
+  const { actions, session } = Portal.useDrawer();
   console.log("init toolbar");
   return (
-    <div>
-      <IconButton color="secondary" onClick={() => actions.handleDrawerOpen(!session.drawer)}>
-        <AddShoppingCartIcon />
-      </IconButton>
-    </div>);
+    <PortalAppHeader />
+  );
 }
 
 //const service = StencilClient.service({url: "http://localhost:8080/q/ide-services"});
@@ -49,11 +44,11 @@ const PortalApp: React.FC<{}> = (props) => {
       primary: Primary,
       secondary: Secondary,
       toolbar: Toolbar,
-      
+
     },
     config: {
-      drawerWidth: 500,
-      toolbarHeight: 300
+      drawerWidth: 300,
+      toolbarHeight: 100
     }
   }
   return (<Portal.Provider config={{ defaultLocale: "en", dev: true, content: { url: "http://localhost:8080/q/ide-services" } }}>
