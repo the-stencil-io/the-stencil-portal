@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { CssBaseline, Toolbar, Box } from '@mui/material';
+import { CssBaseline, Box } from '@mui/material';
 import { SxProps } from '@mui/system';
 import { styled } from "@mui/material/styles";
 
 import StyledAppBar from './Appbar';
 import StyledDrawer from './Drawer';
+import StyledToolbar from './Toolbar';
 import { useDrawer } from '../context/drawer/DrawerContext';
 
 interface ContainerProps {
@@ -43,20 +44,20 @@ const Container: React.FC<ContainerProps> = (components) => {
   return (<Box sx={{ display: 'flex', height: "100vh" }}>
     <CssBaseline />
     <StyledAppBar position="fixed">
-      <Toolbar>
+      <StyledToolbar toolbarHeight={30}>
         {toolbarWindow}
-      </Toolbar>
+      </StyledToolbar>
     </StyledAppBar>
 
     <StyledDrawer variant="permanent" open={drawerOpen} drawerWidth={components.config.drawerWidth}>
-      <Toolbar />
+      <StyledToolbar toolbarHeight={30}/>
       <Box sx={{ display: 'flex', overflowY: "scroll", height: "100vh" }}>
         {drawerOpen ? (<Box sx={{ width: components.config.drawerWidth, height: "100%" }}>{secondaryWindow}</Box>) : null}
       </Box>
     </StyledDrawer>
 
     <StyledMain>
-      <Toolbar />
+      <StyledToolbar toolbarHeight={30}/>
       <Box sx={mainStyle(drawerOpen, components.config.drawerWidth)}>{mainWindow}</Box>
     </StyledMain>
   </Box>);

@@ -1,5 +1,5 @@
 import { Container as Mobile, ContainerProps } from "./Layout"
 
 
-export type {ContainerProps};
-export {Mobile};
+export type { ContainerProps };
+export { Mobile };
