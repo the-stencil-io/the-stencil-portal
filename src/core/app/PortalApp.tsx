@@ -53,8 +53,6 @@ const PortalApp: React.FC<{}> = (props) => {
       toolbar: Toolbar
     }
   }
-  console.log("test-x-z");
-
   return (<Portal.Provider config={{ defaultLocale: "en", dev: true, content: { url: "http://localhost:8080/q/ide-services" } }}>
     {app}
   </Portal.Provider>);
