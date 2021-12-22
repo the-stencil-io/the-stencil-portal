@@ -3,10 +3,6 @@ import React from 'react';
 import * as API from './AppAPI';
 
 import { DrawerProvider } from './drawer/DrawerContext';
-
-import { SiteProvider } from './site/Context';
-import { ServiceConfig } from '../service';
-
 import { TabsProvider } from './tabs/TabsContext';
 import { SecondaryProvider } from './secondary/SecondaryContext';
 import { Container } from '../layout-desktop';
@@ -16,7 +12,6 @@ import { Mobile } from '../layout-mobile';
 interface AppProviderProps {
   drawerOpen?: boolean;
   secondaryOpen?: string;
-  config: ServiceConfig;
   children: API.App;
 }
 
@@ -47,13 +42,11 @@ const AppProvider: React.FC<AppProviderProps> = (props: AppProviderProps) => {
   console.log("portal: App Provider Init");
   return (
     <DrawerProvider drawerOpen={props.drawerOpen}>
-      <SiteProvider config={props.config}>
-        <TabsProvider appId={id}>
-          <SecondaryProvider appId={id} secondary={props.secondaryOpen}>
-            <AppInit children={props.children} />
-          </SecondaryProvider>
-        </TabsProvider>
-      </SiteProvider>
+      <TabsProvider appId={id}>
+        <SecondaryProvider appId={id} secondary={props.secondaryOpen}>
+          <AppInit children={props.children} />
+        </SecondaryProvider>
+      </TabsProvider>
     </DrawerProvider>);
 };
 

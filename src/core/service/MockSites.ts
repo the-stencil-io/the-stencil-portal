@@ -898,7 +898,7 @@ const content_en: Api.Site = {
 }
 
 const MockSites = (locale: string): { content: Api.Site } => {
-  return {content: content_en };
+  return {content: locale === "fi" ? content_fi : content_en };
 }
 
 export default MockSites;

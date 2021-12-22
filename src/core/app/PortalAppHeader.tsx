@@ -6,6 +6,9 @@ import PersonIcon from '@mui/icons-material/Person';
 import Portal from '../'
 import logo from './logo/burger.png';
 
+//import {} from '../../context'
+import { AppLocaleSelection } from './locale/AppLocaleSelection';
+
 
 // username and language select
 const UserOptionsBar: React.FC<{}> = () => {
@@ -13,7 +16,7 @@ const UserOptionsBar: React.FC<{}> = () => {
     <Box display="flex" sx={{ backgroundColor: 'primary.main' }}>
       <Box sx={{ ml: 1 }}> John Smith </Box>
       <Box flexGrow={1} />
-      <Box><Button sx={{ color: 'primary.contrastText', p: 0 }}>EN</Button></Box>
+      <Box><AppLocaleSelection /></Box>
     </Box>
   )
 }

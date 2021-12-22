@@ -10,15 +10,46 @@ import intlMessages from './intl';
 import {
   App, AppId
 } from './context/AppAPI';
+
 import {
   DrawerContextType, DrawerSession, DrawerActions
 } from './context/drawer/DrawerAPI';
 import {
+  DrawerProvider as DrawerProviderAs
+} from './context/drawer/DrawerContext';
+
+
+import {
   TabsContextType, TabsSession, TabSession, TabsHistory, TabsActions
 } from './context/tabs/TabsAPI';
 import {
+  TabsProvider as TabsProviderAs
+} from './context/tabs/TabsContext';
+
+
+import {
   SecondaryContextType, SecondarySession, SecondaryActions 
 } from './context/secondary/SecondaryAPI';
+
+import {
+  SecondaryProvider as SecondaryProviderAs
+} from './context/secondary/SecondaryContext';
+
+
+import {
+  SiteProvider as SiteProviderAs, SiteProviderProps
+} from './context/site/Context';
+import {
+  SiteContextType
+} from './context/site/ContextTypes';
+import {
+  SiteState
+} from './context/site/contextReducer';
+import {
+  useContext as useSiteContext
+} from './context/site/useContext';
+
+
 
 // import { StyledDialog, StyledDialogProps } from './styles/StyledDialog';
 
@@ -29,17 +60,25 @@ declare namespace Portal { //ONLY can export interfaces and types with 'declare 
     DrawerContextType, DrawerSession, DrawerActions,
     TabsContextType, TabsSession, TabSession, TabsHistory, TabsActions,
     SecondaryContextType, SecondarySession, SecondaryActions,
+    SiteContextType, SiteState, SiteProviderProps,
     
-    ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType
+    ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType,
   };
   export {  }
 }
 
 namespace Portal { //export the constants
+  export const SiteProvider = SiteProviderAs;
+  export const DrawerProvider = DrawerProviderAs;
+  export const TabsProvider = TabsProviderAs;
+  export const SecondaryProvider = SecondaryProviderAs;
   export const Provider = AppProvider;
+  
   export const useDrawer = useDrawerAlias;
   export const useTabs = useTabsAlias;
   export const useSecondary = useSecondaryAlias;
+  export const useSite = useSiteContext;
+  
   export const DefaultApp = PortalApp;
   export const defaultTheme = siteTheme;
   export const messages = intlMessages;

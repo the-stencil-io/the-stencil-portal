@@ -8,6 +8,7 @@ interface SiteContextType {
   topic?: Api.Topic;
   link?: Api.TopicLink;
 
+  setSite: (site?: Api.Site) => void;
   setLink: (newLink?: Api.TopicLink) => void;
   setLocale: (newLocale: string) => void;
   setTopic: (newTopic: Api.Topic) => void;
@@ -24,6 +25,10 @@ const initContext = (
     site: state.site,
     topic: state.topic,
 
+    setSite: (site?: Api.Site) => {
+      dispatch({ type: "setSite", site })
+    },
+
     setTopic: (newTopic: Api.Topic) => {
       dispatch({ type: "setTopic", topic: newTopic })
     },
@@ -34,7 +39,7 @@ const initContext = (
       }
       service.getSite(newLocale).then(site => {
         dispatch({ type: "setSite", site: site })
-        dispatch({ type: "setLocale", locale: site.locale })
+        dispatch({ type: "setLocale", locale: newLocale })
 
         if (state.topic) {
           dispatch({ type: "setTopic", topic: site.topics[state.topic.id] })
