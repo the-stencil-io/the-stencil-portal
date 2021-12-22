@@ -19,8 +19,8 @@ const closedMixin = (theme: Theme, drawerWidth: number): CSSObject => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  overflowX: 'hidden',
-  width: `calc(${drawerWidth} + 1px)`
+  width: "0px",
+  visibility: 'hidden'
 });
 
 

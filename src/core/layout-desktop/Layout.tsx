@@ -22,13 +22,6 @@ interface ContainerProps {
 
 const drawerWidth = { expanded: 500 };
 
-const toolbarStyle: SxProps = {
-  backgroundColor: "primary.main",
-  color: "primary.contrastText",
-  overflow: "hidden",
-  position: "fixed",
-  height: "100%"
-};
 const secondaryStyle: SxProps = {
   width: drawerWidth.expanded,
   //marginLeft: `${drawerWidth.collapsed + 1}px`, 
@@ -36,7 +29,7 @@ const secondaryStyle: SxProps = {
 };
 const mainStyle: (drawerOpen: boolean) => SxProps = (drawerOpen) => (drawerOpen ?
   { flexGrow: 1, overflow: "auto", height: "calc(100vh - 64px)", width: `calc(100vw - ${drawerWidth}px)` } :
-  { flexGrow: 1, overflow: "auto", marginLeft: '60px', height: "calc(100vh - 64px)" });
+  { flexGrow: 1, overflow: "auto", height: "calc(100vh - 64px)" });
 
 const drawerStyle: SxProps = { 
   display: 'flex', 
@@ -65,7 +58,7 @@ const Container: React.FC<ContainerProps> = (components) => {
   return (<Box sx={{ display: 'flex', height: "100vh" }}>
     <CssBaseline />
     <StyledAppBar position="fixed">
-      <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} sx={{ alignItems: "self-start" }}>
+      <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} sx={{ alignItems: 'self-start' }}>
         {toolbarWindow}
       </StyledToolbar>
     </StyledAppBar>
