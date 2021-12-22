@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton, Button } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
@@ -21,12 +21,14 @@ const UserOptionsBar: React.FC<{}> = () => {
   )
 }
 
+
+
 // logo, user login, menu toggle
 const LogoBar: React.FC<{}> = () => {
   const { actions, session } = Portal.useDrawer();
 
   return (
-    <Box display="flex" color="black" >
+    <Box display="flex" color="black" height="100%" >
       <Box alignSelf="center"
         sx={{ color: 'primary.main', ml: 1 }}
         flexGrow={1}>
