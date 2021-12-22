@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 import * as API from './AppAPI';
 
@@ -19,11 +20,20 @@ const CreateContainer: React.FC<{ app: API.App }> = ({ app }) => {
   const Main = React.useMemo(() => app.components.primary, [app]);
   const Secondary = React.useMemo(() => app.components.secondary, [app]);
   const Toolbar = React.useMemo(() => app.components.toolbar, [app]);
-
-  console.log(`portal: app container/layout Init: '${app.id}'`);
-  return (
-    <Mobile main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config} />
-  );
+  const theme = useTheme();
+  
+  const small = useMediaQuery(theme.breakpoints.down("sm"));
+  const medium = useMediaQuery(theme.breakpoints.down("md"));
+  
+  console.log(`portal: app container/layout Init: '${app.id}', small: ${small}, medium: ${medium}`);
+  
+  if(small) {
+    return (<Mobile main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.mobile} />);
+  } else if(medium) {
+    
+  }
+  
+  return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} />);
 }
 
 

@@ -8,8 +8,10 @@ interface App {
     secondary: React.ElementType<SecondaryProps>;
   },
   config: {
-    drawerWidth: number;
-    toolbarHeight: number;
+    mobile: {
+      drawerWidth: number;
+      toolbarHeight: number;
+    }
   }
 }
 
