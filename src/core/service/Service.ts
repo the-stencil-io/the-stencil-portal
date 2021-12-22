@@ -19,7 +19,7 @@ interface Topic {
   name: string;
   links: string[];
   headings: TopicHeading[];
-  parent?: string;
+  parent?: string | null;
   blob?: string;
 }
 
@@ -28,7 +28,10 @@ interface TopicLink {
   type: TopicLinkType;
   name: string;
   value: string;
-  secured: boolean;
+  global?: boolean;
+  workflow?: boolean;
+  secured?: boolean;
+  path?: string;
 }
 
 interface TopicHeading {

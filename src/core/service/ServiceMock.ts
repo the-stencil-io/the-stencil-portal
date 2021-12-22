@@ -1,5 +1,6 @@
 import * as Api from './Service';
 
+import MockSites from './MockSites';
 import FallbackSites from './FallbackSites';
 
 
@@ -19,7 +20,7 @@ class ServiceMock implements Api.Service, Store {
 
 
   async getSite(locale: string): Promise<Api.Site> {
-    return FallbackSites(locale).maintainance;
+    return MockSites(locale).content;
     /*
     return this.fetch<Api.Site>(this._config.content.url + "?locale=" + locale)
       .then(site => {
