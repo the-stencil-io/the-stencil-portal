@@ -33,7 +33,7 @@ const CreateContainer: React.FC<{ app: API.App }> = ({ app }) => {
     
   }
   
-  return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} />);
+  return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.desktop} />);
 }
 
 

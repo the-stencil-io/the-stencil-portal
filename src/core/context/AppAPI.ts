@@ -11,6 +11,10 @@ interface App {
     mobile: {
       drawerWidth: number;
       toolbarHeight: number;
+    },
+    desktop: {
+      drawerWidth: number;
+      toolbarHeight: number;
     }
   }
 }

@@ -50,6 +50,10 @@ const app: Portal.App = {
     mobile: {
       drawerWidth: 300,
       toolbarHeight: 100
+    },
+    desktop: {
+      drawerWidth: 500,
+      toolbarHeight: 150
     }
   }
 }
