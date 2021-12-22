@@ -20,8 +20,18 @@ interface App {
 }
 
 interface ToolbarProps {
-
+  logoConfig?: {
+    mobile: {
+      height: number,
+      width: number
+    },
+    desktop: {
+      height: number,
+      width: number
+    }
+  }
 }
+
 interface PrimaryProps {
 
 }

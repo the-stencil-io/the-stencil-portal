@@ -20,8 +20,8 @@ const CreateContainer: React.FC<{ app: API.App }> = ({ app }) => {
   const Main = React.useMemo(() => app.components.primary, [app]);
   const Secondary = React.useMemo(() => app.components.secondary, [app]);
   const Toolbar = React.useMemo(() => app.components.toolbar, [app]);
-  const theme = useTheme();
   
+  const theme = useTheme();
   const small = useMediaQuery(theme.breakpoints.down("sm"));
   const medium = useMediaQuery(theme.breakpoints.down("md"));
   

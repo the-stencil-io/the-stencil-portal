@@ -21,9 +21,9 @@ interface ContainerProps {
 
 
 
-const mainStyle: (drawerOpen: boolean, drawerWidth: number) => SxProps = (drawerOpen, drawerWidth) => (drawerOpen ?
-  { flexGrow: 1, overflow: "auto", height: "calc(100vh - 64px)", width: `calc(100vw - ${drawerWidth}px)` } :
-  { flexGrow: 1, overflow: "auto", height: "calc(100vh - 64px)", marginLeft: '0px' });
+const mainStyle: (drawerOpen: boolean, drawerWidth: number, toolbarHeight: number) => SxProps = (drawerOpen, drawerWidth, toolbarHeight) => (drawerOpen ?
+  { flexGrow: 1, overflow: "auto", height: "calc(100vh - ${toolbarHeight}px)", width: `calc(100vw - ${drawerWidth}px)` } :
+  { flexGrow: 1, overflow: "auto", height: "calc(100vh - ${toolbarHeight}px)", marginLeft: '0px' });
 
 
 const StyledMain = styled("main")(() => ({
@@ -59,7 +59,7 @@ const Container: React.FC<ContainerProps> = (components) => {
 
       <StyledMain>
         <StyledToolbar toolbarHeight={components.config.toolbarHeight} />
-        <Box sx={mainStyle(drawerOpen, components.config.drawerWidth)}>{mainWindow}</Box>
+        <Box sx={mainStyle(drawerOpen, components.config.drawerWidth, components.config.toolbarHeight)}>{mainWindow}</Box>
       </StyledMain>
     </Box>);
 }

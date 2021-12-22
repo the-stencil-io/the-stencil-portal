@@ -27,9 +27,9 @@ const secondaryStyle: SxProps = {
   //marginLeft: `${drawerWidth.collapsed + 1}px`, 
   height: "100%"
 };
-const mainStyle: (drawerOpen: boolean) => SxProps = (drawerOpen) => (drawerOpen ?
-  { flexGrow: 1, overflow: "auto", height: "calc(100vh - 64px)", width: `calc(100vw - ${drawerWidth}px)` } :
-  { flexGrow: 1, overflow: "auto", height: "calc(100vh - 64px)" });
+const mainStyle: (drawerOpen: boolean, toolbarHeight: number) => SxProps = (drawerOpen) => (drawerOpen ?
+  { flexGrow: 1, overflow: "auto", height: "calc(100vh - ${toolbarHeight}px)", width: `calc(100vw - ${drawerWidth}px)` } :
+  { flexGrow: 1, overflow: "auto", height: "calc(100vh - ${toolbarHeight}px)" });
 
 const drawerStyle: SxProps = { 
   display: 'flex', 
@@ -72,7 +72,7 @@ const Container: React.FC<ContainerProps> = (components) => {
 
     <StyledMain>
       <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} />
-      <Box sx={mainStyle(drawerOpen)}>{mainWindow}</Box>
+      <Box sx={mainStyle(drawerOpen, components.config.toolbarHeight)}>{mainWindow}</Box>
     </StyledMain>
   </Box>);
 }

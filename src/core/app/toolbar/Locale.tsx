@@ -12,12 +12,14 @@ interface AppLocaleSelectionDialogProps {
 
 }
 
-const AppLocaleSelectionDialog: React.FC<AppLocaleSelectionDialogProps> = ({ open, onClose }) => {
+const SelectDialog: React.FC<AppLocaleSelectionDialogProps> = ({ open, onClose }) => {
   const site = Portal.useSite();
   const intl = useIntl();
+
   const handleLanguageSelect = (language: string) => {
-    site.setLocale(language)
     onClose();
+    site.setLocale(language)
+
   };
 
   return (
@@ -38,21 +40,23 @@ const AppLocaleSelectionDialog: React.FC<AppLocaleSelectionDialogProps> = ({ ope
 }
 
 
-const AppLocaleSelection: React.FC<{}> = ({ }) => {
+const Locale: React.FC<{}> = ({ }) => {
   const site = Portal.useSite();
   const [dialogOpen, setDialogOpen] = React.useState(false);
 
   return (
-    <>
-      <AppLocaleSelectionDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
+    <Box>
+      <SelectDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
       <Box>
         <Button onClick={() => setDialogOpen(true)}
           sx={{ color: "primary.contrastText", p: 0 }}>
           <FormattedMessage id={`locale.${site.locale}`} />
         </Button>
       </Box>
-    </>
+    </Box>
   );
 }
 
-export { AppLocaleSelection };
+export { Locale };
+
+
