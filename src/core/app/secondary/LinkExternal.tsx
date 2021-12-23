@@ -1,18 +1,14 @@
 import React from 'react';
-
-import { ListItem, ListItemText, ListItemIcon } from '@mui/material';
-
+import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import LinkIcon from '@mui/icons-material/Link';
 import Portal from '../../';
 
 
-
-
-interface LinkInternalProps {
-  children: Portal.TopicLink;
+interface LinkExternalProps {
+  children: Portal.TopicLink
 }
 
-const LinkInternal: React.FC<LinkInternalProps> = ({ children }) => {
+const LinkExternal: React.FC<LinkExternalProps> = ({ children }) => {
   const link = children;
 
   return (
@@ -22,4 +18,4 @@ const LinkInternal: React.FC<LinkInternalProps> = ({ children }) => {
     </ListItem>)
 }
 
-export { LinkInternal }
+export { LinkExternal }
