@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Box, DialogTitle, Dialog, DialogContent } from '@mui/material';
+import { Button, Box, DialogTitle, Dialog, DialogContent, List, ListItem } from '@mui/material';
 
 import { FormattedMessage, useIntl } from 'react-intl';
 import Portal from '../../';
@@ -23,17 +23,20 @@ const SelectDialog: React.FC<AppLocaleSelectionDialogProps> = ({ open, onClose }
   };
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} sx={{backdropFilter: 'blur(5px)'}}>
       <DialogTitle><FormattedMessage id="locale.select" /></DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{height: 100, width: 100}}>
+      <List>
         {
           UI_LANGUAGES.map((lang, index) => (
-            <Button key={index} disabled={lang === intl.locale} onClick={() => handleLanguageSelect(lang)}
+  
+            <ListItem button key={index} disabled={lang === intl.locale} onClick={() => handleLanguageSelect(lang)}
               sx={{ "&:disabled": { color: 'darkGrey' }, color: "primary.main", p: 0 }}>
               <FormattedMessage id={`locale.${lang}`} />
-            </Button>
+            </ListItem>
           ))
         }
+        </List>
       </DialogContent>
     </Dialog>
   )

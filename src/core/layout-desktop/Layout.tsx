@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CssBaseline, Toolbar, Typography, Box } from '@mui/material';
+import { CssBaseline, Box } from '@mui/material';
 import { SxProps } from '@mui/system';
 import { styled } from "@mui/material/styles";
 
@@ -36,8 +36,7 @@ const drawerStyle: SxProps = {
   overflowY: "scroll", 
   height: "100vh", 
   backgroundColor: 'primary.main', 
-  color: 'primary.contrastText', 
-  pl: 2 };
+  color: 'primary.contrastText'};
 
 
 const StyledMain = styled("main")(() => ({
@@ -55,7 +54,7 @@ const Container: React.FC<ContainerProps> = (components) => {
   const secondaryWindow = React.useMemo(() => secondary, [secondary]);
   const toolbarWindow = React.useMemo(() => toolbar, [toolbar]);
 
-  return (<Box sx={{ display: 'flex', height: "100vh" }}>
+  return (<Box sx={{ display: 'flex', height: "100vh"}}>
     <CssBaseline />
     <StyledAppBar position="fixed">
       <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} sx={{ alignItems: 'self-start' }}>

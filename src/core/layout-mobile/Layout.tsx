@@ -28,10 +28,9 @@ const mainStyle: (drawerOpen: boolean, drawerWidth: number, toolbarHeight: numbe
 
 const drawerStyle: SxProps = { 
   display: 'flex', 
-  overflowY: "scroll", 
+  overflowY: "scroll",
   height: "100vh", 
-  backgroundColor: 'primary.main', 
-  pl: 2 };
+  backgroundColor: 'primary.main'};
 
 
 const StyledMain = styled("main")(() => ({

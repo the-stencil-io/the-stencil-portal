@@ -11,7 +11,7 @@ const palette = {
 
   primary: {
     main: 'rgb(17, 24, 39)', // dark grey-black
-    light: 'rgba(31, 46, 71',
+    light: 'rgb(31, 44, 71)', // prussian blue
     dark: 'rgba(6, 9, 14)',
     contrastText: '#ffffff',
   },
