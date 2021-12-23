@@ -5,7 +5,7 @@ import gfm from 'remark-gfm';
 import Divider from '@mui/material/Divider';
 import Renderers from './Renderers';
 
-import { Links } from '../secondary/Links';
+import { Links } from './Links';
 import Portal from '../../';
 
 //import { Links } from './Links';

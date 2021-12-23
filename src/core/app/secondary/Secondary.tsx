@@ -1,12 +1,11 @@
 import React from 'react';
+import { Topics } from './Topics';
 
 const Secondary: React.FC<{}> = () => {
   return (
 
     <div>
-      <p>Topic 1</p>
-      <p>Topic 2</p>
-      <p>Topic 3</p>
+      <Topics />
     </div>);
 }
 
