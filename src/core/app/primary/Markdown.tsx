@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTheme, useMediaQuery } from '@mui/material';
+
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm';
 
@@ -18,18 +20,21 @@ interface MarkdownViewProps {
 const Markdown: React.FC<MarkdownViewProps> = ({ children }) => {
   const site = Portal.useSite();
   const topic = site.topic;
+  const theme = useTheme();
+  const small = useMediaQuery(theme.breakpoints.down("sm"));
+
+
   const blob = site.getBlob();
-  if(!topic || !blob) {
+  if (!topic || !blob) {
     return <div>not selected ...</div>
   }
-
 
   const onAnchorClick: (anchor: string) => void = () => console.log("link clicked");
   const createAnchorRef = (name: string): React.RefObject<HTMLSpanElement> => {
     const value: React.RefObject<HTMLSpanElement> = React.createRef();
     return value;
   };
-  
+
 
   return (
     <>
@@ -41,32 +46,44 @@ const Markdown: React.FC<MarkdownViewProps> = ({ children }) => {
           h1: (props) => {
 
             console.log(props)
-            return <div style={{ "fontSize": '2.3rem' }}>{props.children}</div>;
+            if (small) {
+              return <div style={{ "fontSize": '16pt' }}>{props.children}</div>
+            } return <div style={{ "fontSize": '25pt' }}>{props.children}</div>;
           },
           h2: (props) => {
 
             console.log(props)
-            return <div style={{ "fontSize": "2rem" }}>{props.children}</div>;
+            if (small) {
+              return <div style={{ "fontSize": '13pt' }}>{props.children}</div>
+            } return <div style={{ "fontSize": "20pt" }}>{props.children}</div>;
           },
           h3: (props) => {
 
             console.log(props)
-            return <div style={{ "fontSize": "1.7rem" }}>{props.children}</div>;
+            if (small) {
+              return <div style={{ "fontSize": '11pt' }}>{props.children}</div>
+            } return <div style={{ "fontSize": "18pt" }}>{props.children}</div>;
           },
           h4: (props) => {
 
             console.log(props)
-            return <div style={{ "fontSize": "1.4rem" }}>{props.children}</div>;
+            if (small) {
+              return <div style={{ "fontSize": '9pt' }}>{props.children}</div>
+            } return <div style={{ "fontSize": "18pt" }}>{props.children}</div>;
           },
           h5: (props) => {
 
             console.log(props)
-            return <div style={{ "fontSize": "1.1rem" }}>{props.children}</div>;
+            if (small) {
+              return <div style={{ "fontSize": '9pt' }}>{props.children}</div>
+            } return <div style={{ "fontSize": "18pt" }}>{props.children}</div>;
           },
           h6: (props) => {
 
             console.log(props)
-            return <div style={{ "fontSize": "1rem" }}>{props.children}</div>;
+            if (small) {
+              return <div style={{ "fontSize": '9pt' }}>{props.children}</div>
+            } return <div style={{ "fontSize": "18pt" }}>{props.children}</div>;
           },
           link: (props) => Renderers.Link(onAnchorClick, props),
           text: (props) => Renderers.Text(createAnchorRef, props)
