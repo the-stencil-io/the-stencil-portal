@@ -3,9 +3,10 @@ import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm';
 
 import Divider from '@mui/material/Divider';
-
 import Renderers from './Renderers';
-import Portal from '../../'
+
+import { Links } from '../secondary/Links';
+import Portal from '../../';
 
 //import { Links } from './Links';
 
@@ -70,7 +71,7 @@ const Markdown: React.FC<MarkdownViewProps> = ({ children }) => {
           link: (props) => Renderers.Link(onAnchorClick, props),
           text: (props) => Renderers.Text(createAnchorRef, props)
         }} />
-      { topic?.links.length ? (<><Divider />LINKS COMPONENT HERE</>) : null}
+      { topic?.links.length ? (<><Divider /><Links /></>) : null}
     </>);
 }
 
