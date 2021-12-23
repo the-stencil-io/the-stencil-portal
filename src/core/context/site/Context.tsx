@@ -41,6 +41,7 @@ const SiteProvider: React.FC<SiteProviderProps> = (props) => {
 const SiteContext = React.createContext<SiteContextType>({
   service: {} as any,
   locale: "en",
+  getBlob: (topic?: Topic) => { console.log(topic); return undefined },
   setSite: (site?: Site) => console.log(site),
   setLocale: (newLocale: string) => console.log(newLocale),
   setTopic: (newTopic: Topic) => console.log(newTopic),

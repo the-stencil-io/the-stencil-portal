@@ -8,6 +8,7 @@ interface SiteContextType {
   topic?: Api.Topic;
   link?: Api.TopicLink;
 
+  getBlob: (topic?: Api.Topic) => Api.Blob | undefined;
   setSite: (site?: Api.Site) => void;
   setLink: (newLink?: Api.TopicLink) => void;
   setLocale: (newLocale: string) => void;
@@ -25,6 +26,20 @@ const initContext = (
     site: state.site,
     topic: state.topic,
 
+    getBlob: (topic?: Api.Topic) => {
+      if (!state.site) {
+        return undefined;
+      }
+      if(!topic && !state.topic) {
+        return undefined;
+      }
+      
+      let targetTopic = topic ? topic: state.topic;
+      if(!targetTopic?.blob) {
+        return undefined
+      }
+      return state.site.blobs[targetTopic.blob];
+    },
     setSite: (site?: Api.Site) => {
       dispatch({ type: "setSite", site })
     },
