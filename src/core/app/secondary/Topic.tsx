@@ -41,7 +41,7 @@ const Topic: React.FC<TopicProps> = ({ value }) => {
   return (
     <>
       <ListItem button onClick={onMainTopicClick}>
-        <ListItemText primary={mainTopicName} />
+        <ListItemText primary={mainTopicName} sx={{color: 'text.secondary'}} />
         {length === 0 ? null :
           (open ? <ExpandLess /> : <ExpandMore />
           )

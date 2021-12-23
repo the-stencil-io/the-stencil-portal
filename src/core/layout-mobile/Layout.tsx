@@ -26,6 +26,14 @@ const mainStyle: (drawerOpen: boolean, drawerWidth: number, toolbarHeight: numbe
   { flexGrow: 1, overflow: "auto", height: "calc(100vh - ${toolbarHeight}px)", marginLeft: '0px' });
 
 
+const drawerStyle: SxProps = { 
+  display: 'flex', 
+  overflowY: "scroll", 
+  height: "100vh", 
+  backgroundColor: 'primary.main', 
+  pl: 2 };
+
+
 const StyledMain = styled("main")(() => ({
   width: "100%",
   height: "100%"
@@ -50,12 +58,12 @@ const Container: React.FC<ContainerProps> = (components) => {
         </StyledToolbar>
       </StyledAppBar>
 
-      <StyledDrawer variant="permanent" open={drawerOpen} drawerWidth={components.config.drawerWidth}>
-        <StyledToolbar toolbarHeight={components.config.toolbarHeight} />
-        <Box sx={{ display: 'flex', overflowY: "scroll", height: "100vh" }}>
-          {drawerOpen ? (<Box sx={{ width: components.config.drawerWidth, height: "100%" }}>{secondaryWindow}</Box>) : null}
-        </Box>
-      </StyledDrawer>
+    <StyledDrawer variant="permanent" open={drawerOpen} drawerWidth={components.config.drawerWidth}>
+      <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight}  />
+      <Box sx={drawerStyle}>
+        {drawerOpen ? (<Box>{secondaryWindow}</Box>) : null}
+      </Box>
+    </StyledDrawer>
 
       <StyledMain>
         <StyledToolbar toolbarHeight={components.config.toolbarHeight} />
