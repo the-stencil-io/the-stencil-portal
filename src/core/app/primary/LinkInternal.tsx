@@ -17,7 +17,7 @@ const LinkInternal: React.FC<LinkInternalProps> = ({ children }) => {
 
   return (
     <ListItem button component="a" href={link.value} target="_blank">
-      <ListItemIcon><LinkIcon /></ListItemIcon>
+      <ListItemIcon sx={{color: 'secondary.main'}}><LinkIcon /></ListItemIcon>
       <ListItemText primary={link.name} />
     </ListItem>)
 }

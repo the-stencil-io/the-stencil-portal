@@ -12,12 +12,12 @@ const OptionsComponent: React.FC<{}> = () => {
   const { actions, session } = Portal.useDrawer();
   return (<>
     <Box>
-      <IconButton sx={{ color: "primary.main" }}>
+      <IconButton sx={{color: 'secondary.main'}}>
         <PersonIcon />
       </IconButton>
     </Box>
     <Box>
-      <IconButton sx={{ color: "primary.main" }} onClick={() => actions.handleDrawerOpen(!session.drawer)}>
+      <IconButton sx={{color: 'secondary.main'}} onClick={() => actions.handleDrawerOpen(!session.drawer)}>
         <MenuIcon />
       </IconButton>
     </Box>
@@ -48,7 +48,7 @@ const ToolbarRow2: React.FC<{}> = () => {
 
     {/** COLUMN 2 */}
     <Box display="flex" alignSelf="center" >
-      <OptionsComponent />
+      <OptionsComponent/>
     </Box>
   </Box>);
 }

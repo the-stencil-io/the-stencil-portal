@@ -80,7 +80,7 @@ const siteTheme = createTheme({
       fontSize: "1.6rem",
       lineHeight: 1,
       fontFamily: "'IBM Plex Sans Arabic', sans-serif",
-      fontWeight: 300,
+      fontWeight: 400,
       paddingTop: 15,
       paddingBottom: 15,
     },
@@ -88,20 +88,20 @@ const siteTheme = createTheme({
       fontSize: "1.3rem",
       lineHeight: 1,
       fontFamily: "'IBM Plex Sans Arabic', sans-serif",
-      fontWeight: 300
+      fontWeight: 400
     },
     h5: {
       fontSize: "1.1rem",
       fontFamily: "'IBM Plex Sans Arabic', sans-serif",
-      fontWeight: 300
+      fontWeight: 400
     },
     h6: {
       fontFamily: "'IBM Plex Sans Arabic', sans-serif",
-      fontWeight: 300
+      fontWeight: 400
     },
     body1: {
       fontFamily: "'IBM Plex Sans Arabic', sans-serif",
-      fontWeight: 300,
+      fontWeight: 400,
     },
     body2: {
       fontFamily: "'IBM Plex Sans Arabic', sans-serif",

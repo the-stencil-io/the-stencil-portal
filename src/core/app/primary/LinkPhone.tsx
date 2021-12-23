@@ -15,7 +15,7 @@ const LinkPhone: React.FC<LinkPhoneProps> = ({ children }) => {
 
   return (
     <ListItem>
-      <ListItemIcon><CallIcon /></ListItemIcon>
+      <ListItemIcon sx={{color: 'secondary.main'}}><CallIcon /></ListItemIcon>
       <ListItemText primary={`${link.name}: ${link.value}`} />
     </ListItem>)
 }
