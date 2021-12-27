@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Button, Box, DialogTitle, Dialog, DialogContent, List, ListItem } from '@mui/material';
+import { Button, Box, DialogTitle, Dialog, DialogContent, Divider, List, ListItem, ListItemButton, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { FormattedMessage, useIntl } from 'react-intl';
 import Portal from '../../';
@@ -23,19 +24,33 @@ const SelectDialog: React.FC<AppLocaleSelectionDialogProps> = ({ open, onClose }
   };
 
   return (
-    <Dialog open={open} sx={{backdropFilter: 'blur(5px)'}}>
-      <DialogTitle><FormattedMessage id="locale.select" /></DialogTitle>
-      <DialogContent sx={{height: 100, width: 100}}>
-      <List>
-        {
-          UI_LANGUAGES.map((lang, index) => (
-  
-            <ListItem button key={index} disabled={lang === intl.locale} onClick={() => handleLanguageSelect(lang)}
-              sx={{ "&:disabled": { color: 'darkGrey' }, color: "primary.main", p: 0 }}>
-              <FormattedMessage id={`locale.${lang}`} />
-            </ListItem>
-          ))
-        }
+    <Dialog open={open} sx={{ backdropFilter: 'blur(5px)' }}>
+      <DialogTitle>
+        <Box display="flex" justifyContent='space-between' alignItems='center'>
+          <Box>
+            <FormattedMessage id="locale.select" />
+          </Box>
+          <Box>
+            <IconButton onClick={onClose}
+              sx={{color: (theme) => theme.palette.secondary.main, ml: 2}}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+        </Box>
+      </DialogTitle>
+      <Divider />
+      <DialogContent >
+        <List>
+          {
+            UI_LANGUAGES.map((lang, index) => (
+              <ListItem disablePadding>
+                <ListItemButton key={index} disabled={lang === intl.locale} onClick={() => handleLanguageSelect(lang)}
+                  sx={{ "&:disabled": { color: 'darkGrey' }, color: "primary.main", pt: 2, pb: 2, pl: 1, pr: 1 }}>
+                  <FormattedMessage id={`locale.${lang}`} />
+                </ListItemButton>
+              </ListItem>
+            ))
+          }
         </List>
       </DialogContent>
     </Dialog>
