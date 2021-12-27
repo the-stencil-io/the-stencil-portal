@@ -17,6 +17,10 @@ const app: Portal.App = {
       drawerWidth: 300,
       toolbarHeight: 100
     },
+    tablet: {
+      drawerWidth: 400,
+      toolbarHeight: 125
+    },
     desktop: {
       drawerWidth: 500,
       toolbarHeight: 150

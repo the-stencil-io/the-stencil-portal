@@ -8,6 +8,7 @@ import { TabsProvider } from './tabs/TabsContext';
 import { SecondaryProvider } from './secondary/SecondaryContext';
 import { Container } from '../layout-desktop';
 import { Mobile } from '../layout-mobile';
+import { Tablet } from '../layout-tablet';
 
 
 interface AppProviderProps {
@@ -30,10 +31,9 @@ const CreateContainer: React.FC<{ app: API.App }> = ({ app }) => {
   if(small) {
     return (<Mobile main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.mobile} />);
   } else if(medium) {
-    
+    return (<Tablet main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.tablet}/>)
   }
-  
-  return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.desktop} />);
+    return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.desktop} />);
 }
 
 

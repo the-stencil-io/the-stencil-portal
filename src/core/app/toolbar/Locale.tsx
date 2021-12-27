@@ -43,7 +43,7 @@ const SelectDialog: React.FC<AppLocaleSelectionDialogProps> = ({ open, onClose }
         <List>
           {
             UI_LANGUAGES.map((lang, index) => (
-              <ListItem disablePadding>
+              <ListItem disablePadding key={index}>
                 <ListItemButton key={index} disabled={lang === intl.locale} onClick={() => handleLanguageSelect(lang)}
                   sx={{ "&:disabled": { color: 'darkGrey' }, color: "primary.main", pt: 2, pb: 2, pl: 1, pr: 1 }}>
                   <FormattedMessage id={`locale.${lang}`} />

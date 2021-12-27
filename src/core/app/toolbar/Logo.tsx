@@ -15,10 +15,9 @@ const Logo: React.FC<{}> = () => {
   if(small) {
     return (<img src={burger} height="70px" width="80px" />);
   } else if(medium) {
-    
+    return (<img src={burger} height="100" width="120" />)
   }
-  
-  
+    
   return (
     <img src={burger} height="120px" width="150px" />
   )
