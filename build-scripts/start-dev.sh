@@ -16,9 +16,9 @@ else
   
   read -p "Press [Enter] to continue" 
 
-  cp ./.demo/index.tsx $INDEX_FILE
-  cp ./.demo/react-app-env.d.ts $TS_FILE
+  cp ./build-scripts/demo/index.tsx $INDEX_FILE
+  cp ./build-scripts/demo/react-app-env.d.ts $TS_FILE
   rm -r $PUBLIC_FILE
   mkdir $PUBLIC_FILE
-  cp -R ./.demo/public/* $PUBLIC_FILE
+  cp -R ./build-scripts/demo/public/* $PUBLIC_FILE
 fi
