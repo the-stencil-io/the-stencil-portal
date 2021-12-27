@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Divider, List } from '@mui/material';
-import { useSite } from '../../context/site/useContext';
 import { Topic } from './Topic';
+import Portal from '../../';
 
 
 interface TopicsProps {
@@ -10,8 +10,8 @@ interface TopicsProps {
 }
 
 const Topics: React.FC<TopicsProps> = () => {
+  const { site } = Portal.useSite();
 
-  const site = useSite();
   if (!site) {
     return null;
   }

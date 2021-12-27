@@ -2,18 +2,18 @@ import React from 'react';
 import { List, Divider, Typography } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 
-import { useTopic, useSite } from '../../context/site/useContext';
 import { LinkInternal } from './LinkInternal';
 import { LinkPhone } from './LinkPhone';
 import { LinkExternal } from './LinkExternal';
+import Portal from '../../';
 
 
 interface LinksProps {
 }
 
 const Links: React.FC<LinksProps> = () => {
-  const topic = useTopic();
-  const site = useSite();
+  const { topic, site } = Portal.useSite();  
+
   if (!topic || !site) {
     return null;
   }

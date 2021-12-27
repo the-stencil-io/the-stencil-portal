@@ -6,8 +6,6 @@ import LinkIcon from '@mui/icons-material/Link';
 import Portal from '../../';
 
 
-
-
 interface LinkInternalProps {
   children: Portal.TopicLink;
 }

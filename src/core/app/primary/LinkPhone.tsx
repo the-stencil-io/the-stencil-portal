@@ -5,7 +5,6 @@ import CallIcon from '@mui/icons-material/Call';
 import Portal from '../../';
 
 
-
 interface LinkPhoneProps {
   children: Portal.TopicLink
 }

@@ -6,7 +6,6 @@ import { List, ListItem, ListItemText, Collapse, Box } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 
-import { useTopics, useContext } from '../../context/site/useContext';
 import Portal from '../../'
 
 
@@ -20,10 +19,9 @@ interface TopicProps {
 
 const Topic: React.FC<TopicProps> = ({ value }) => {
   const [open, setOpen] = React.useState(false);
-  const { setTopic } = useContext();
-  const topics = useTopics();
+  const { setTopic, site } = Portal.useSite();
 
-  const subTopics = Object.values(topics)
+  const subTopics = Object.values(site?.topics ? site?.topics : {})
     .filter(t => t.parent === value.id)
     .map((sub, index) => (
       <ListItem key={index} button selected={true} sx={{ ml: 3 }} onClick={() => setTopic(sub)}>
