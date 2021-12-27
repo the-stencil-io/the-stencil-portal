@@ -3,8 +3,8 @@
   "version": "1.0.2",
   "private": false,
   "license": "Apache-2.0",
-  "main": "build/core/index.js",
-  "types": "build/core/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "files": [
     "build"
   ],
