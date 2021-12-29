@@ -1,4 +1,4 @@
-type TopicLinkType = "phone" | "dialob" | "internal" | "external" | "workflow";
+type TopicLinkType = "phone" | "dialob" | "internal" | "external" | "workflow" | string;
 interface Site {
   id: string;
   images: string;
