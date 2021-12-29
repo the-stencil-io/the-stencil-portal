@@ -38,6 +38,10 @@ publish to npm
 
 `yarn publish`
 
+OR 
+
+pushing to branch main triggers a build/release via github workflows
+
 ---
 
 ### Prerequisites
