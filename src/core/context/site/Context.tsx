@@ -3,11 +3,15 @@ import { Service, Topic, TopicLink, Site } from '../../service';
 import { contextReducer, SiteState, ImmutableSiteState } from './contextReducer';
 import { SiteContextType, initContext } from './ContextTypes';
 
-
 interface SiteProviderProps {
   service: Service;
   defaultLocale: string;
-  children: React.ReactNode;
+  children: React.ReactNode; 
+  events?: {
+    setTopic?: (newTopic: Topic) => void;
+    setLink?: (newLink?: TopicLink) => void;
+    setSite?: (newSite: Site) => void;
+  }
 }
 
 const initState = (defaultLocale: string): SiteState => {
@@ -16,9 +20,10 @@ const initState = (defaultLocale: string): SiteState => {
 };
 
 const SiteProvider: React.FC<SiteProviderProps> = (props) => {
+  const { events, defaultLocale } = props;
   const service: Service = React.useMemo(() => props.service, [props.service])
-  const [state, dispatch] = React.useReducer(contextReducer, React.useMemo(() => initState(props.defaultLocale), [props.defaultLocale]));
-  const contextValue = React.useMemo(() => initContext(state, service, dispatch), [state, service, dispatch]);
+  const [state, dispatch] = React.useReducer(contextReducer, React.useMemo(() => initState(defaultLocale), [defaultLocale]));
+  const contextValue = React.useMemo(() => initContext(state, service, dispatch, events), [state, service, dispatch, events]);
 
   // load site
   React.useEffect(() => {

@@ -55,8 +55,15 @@ const loading_en: Api.Site = {
   links: {}
 }
 
-const FallbackSites = (locale: string): {loading: Api.Site, maintainance: Api.Site} => {
-  return {loading: loading_en, maintainance: maintainace_en };
+const DefaultFallbackSites = (): Api.FallbackSites => {
+  return {
+    loading: {
+      en: loading_en
+    },
+    maintainance: {
+      en: maintainace_en
+    }
+  };
 }
 
-export default FallbackSites;
+export default DefaultFallbackSites;

@@ -1,6 +1,6 @@
 import * as Api from './Service';
 
-import FallbackSites from './FallbackSites';
+import DefaultFallbackSites from './FallbackSites';
 
 
 interface Store {
@@ -10,9 +10,11 @@ interface Store {
 class ServiceImpl implements Api.Service, Store {
 
   private _config: Api.ServiceConfig;
+  private _fallback: Api.FallbackSites;
 
   constructor(config: Api.ServiceConfig) {
     this._config = config;
+    this._fallback = config.fallbackSites ? config.fallbackSites : DefaultFallbackSites();
   }
 
   async getSite(locale: string): Promise<Api.Site> {
@@ -21,14 +23,20 @@ class ServiceImpl implements Api.Service, Store {
         if (site) {
           return site;
         }
-        return FallbackSites(locale).maintainance;
+        const basedOnLocale = this._fallback.maintainance[locale];
+        if (basedOnLocale) {
+          return basedOnLocale;
+        }
+        return Object.values(this._fallback.maintainance)[0];
       });
   }
   getSiteLoading(locale: string): Api.Site {
-    return FallbackSites(locale).loading;
+    const basedOnLocale = this._fallback.loading[locale];
+    if (basedOnLocale) {
+      return basedOnLocale;
+    }
+    return Object.values(this._fallback.loading)[0];
   }
-
-
   setErrors(value: any, url: string, init?: RequestInit) {
     console.error(value, url, init)
   }

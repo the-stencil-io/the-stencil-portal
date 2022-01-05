@@ -4,7 +4,7 @@ import { useTabs as useTabsAlias } from './context/tabs/TabsContext';
 import { useSecondary as useSecondaryAlias } from './context/secondary/SecondaryContext';
 import { siteTheme } from './theme/siteTheme';
 import { PortalApp } from './app/PortalApp';
-import { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType, createService as createServiceAs } from './service';
+import { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType, LocaleCode, FallbackSites, createService as createServiceAs } from './service';
 import intlMessages from './intl';
 
 import {
@@ -40,13 +40,13 @@ import {
   SiteProvider as SiteProviderAs, SiteProviderProps
 } from './context/site/Context';
 import {
-  SiteContextType
+  SiteContextType, SiteConfigEvents
 } from './context/site/ContextTypes';
 import {
   SiteState
 } from './context/site/contextReducer';
 import {
-  useContext as useSiteContext
+  useContext as useSiteContext, useBlob as useBlobContext
 } from './context/site/useContext';
 
 
@@ -60,8 +60,8 @@ declare namespace Portal { //ONLY can export interfaces and types with 'declare 
     DrawerContextType, DrawerSession, DrawerActions,
     TabsContextType, TabsSession, TabSession, TabsHistory, TabsActions,
     SecondaryContextType, SecondarySession, SecondaryActions,
-    SiteContextType, SiteState, SiteProviderProps,
-    
+    SiteContextType, SiteState, SiteProviderProps, SiteConfigEvents,
+    LocaleCode, FallbackSites,
     ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType,
   };
   export {  }
@@ -78,6 +78,7 @@ namespace Portal { //export the constants
   export const useTabs = useTabsAlias;
   export const useSecondary = useSecondaryAlias;
   export const useSite = useSiteContext;
+  export const useBlob = useBlobContext;
   
   export const DefaultApp = PortalApp;
   export const defaultTheme = siteTheme;

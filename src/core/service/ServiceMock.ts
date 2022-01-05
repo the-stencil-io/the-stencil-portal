@@ -1,7 +1,7 @@
 import * as Api from './Service';
 
 import MockSites from './MockSites';
-import FallbackSites from './FallbackSites';
+import DefaultFallbackSites from './FallbackSites';
 
 
 interface Store {
@@ -12,9 +12,11 @@ interface Store {
 class ServiceMock implements Api.Service, Store {
 
   private _config: Api.ServiceConfig;
+  private _fallback: Api.FallbackSites;
 
   constructor(config: Api.ServiceConfig) {
     this._config = config;
+    this._fallback = config.fallbackSites ? config.fallbackSites : DefaultFallbackSites();
     console.log("using mock services", config);
   }
 
@@ -32,7 +34,11 @@ class ServiceMock implements Api.Service, Store {
       */
   }
   getSiteLoading(locale: string): Api.Site {
-    return FallbackSites(locale).loading;
+    const basedOnLocale = this._fallback.loading[locale];
+    if(basedOnLocale) {
+      return basedOnLocale;
+    }
+    return Object.values(this._fallback.loading)[0];
   }
 
 

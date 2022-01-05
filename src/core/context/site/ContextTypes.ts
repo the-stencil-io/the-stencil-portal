@@ -15,10 +15,18 @@ interface SiteContextType {
   setTopic: (newTopic: Api.Topic) => void;
 }
 
+interface SiteConfigEvents {
+  setTopic?: (newTopic: Api.Topic) => void;
+  setLink?: (newLink?: Api.TopicLink) => void;
+  setSite?: (newSite: Api.Site) => void;
+}
+
 const initContext = (
   state: SiteState,
   service: Api.Service,
-  dispatch: React.Dispatch<ContextAction>): SiteContextType => {
+  dispatch: React.Dispatch<ContextAction>,
+  events?: SiteConfigEvents
+  ): SiteContextType => {
 
   return {
     service: service,
@@ -42,10 +50,18 @@ const initContext = (
     },
     setSite: (site?: Api.Site) => {
       dispatch({ type: "setSite", site })
+      if(site && events && events.setSite) {
+        events.setSite(site);  
+      }
+      
     },
 
     setTopic: (newTopic: Api.Topic) => {
       dispatch({ type: "setTopic", topic: newTopic })
+      if(events && events.setTopic) {
+        events.setTopic(newTopic);  
+      }
+      
     },
 
     setLocale: (newLocale: string) => {
@@ -64,6 +80,9 @@ const initContext = (
 
     },
     setLink: (newLink?: Api.TopicLink) => {
+      if(events && events.setLink) {
+        events.setLink(newLink);  
+      }
       if (newLink && !(newLink.type === "dialob" || newLink.type === "workflow")) {
         return;
       }
@@ -72,5 +91,5 @@ const initContext = (
   };
 }
 
-export type { SiteContextType };
+export type { SiteContextType, SiteConfigEvents };
 export { initContext };

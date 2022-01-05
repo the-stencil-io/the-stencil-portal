@@ -1,3 +1,5 @@
+
+type LocaleCode = string;
 type TopicLinkType = "phone" | "dialob" | "internal" | "external" | "workflow" | string;
 interface Site {
   id: string;
@@ -41,6 +43,11 @@ interface TopicHeading {
   level: number;
 }
 
+interface FallbackSites {
+  loading: Record<LocaleCode, Site>;
+  maintainance: Record<LocaleCode, Site>;
+}
+
 interface Service {
   getSite: (locale: string) => Promise<Site>;
   getSiteLoading: (locale: string) => Site;
@@ -48,10 +55,11 @@ interface Service {
 
 interface ServiceConfig {
   content: { url: string };
+  fallbackSites?: FallbackSites;
   defaultLocale: string;
   dev?: boolean;
 }
 
-export type { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType };
+export type { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType, LocaleCode, FallbackSites };
 
 

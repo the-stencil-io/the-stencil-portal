@@ -1,4 +1,4 @@
-import { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType } from './Service';
+import { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType, LocaleCode, FallbackSites } from './Service';
 import { ServiceImpl } from './ServiceImpl';
 import { ServiceMock } from './ServiceMock';
 
@@ -11,4 +11,4 @@ const createService = (config: ServiceConfig): Service => {
 
 
 export { ServiceImpl, ServiceMock, createService };
-export type { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType };
+export type { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType, LocaleCode, FallbackSites };
