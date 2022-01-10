@@ -36,7 +36,7 @@ const LayoutCalc: React.FC<LayoutCalcProps> = ({ config, children }) => {
   const secondary: SxProps = React.useMemo(() => Object.assign({ width: drawerWidth, height: `calc(100vh - ${config.toolbarHeight}px)` }, config.secondary), [drawerWidth, config.secondary]);
   const contents = React.useMemo(() => children({ main, secondary, drawerWidth}), [main, secondary, drawerWidth]);
 
-  return (<Box sx={{ display: 'flex', height: "100vh" }}>
+  return (<Box sx={{display: 'flex',  height: "100vh"}}>
     <CssBaseline />
     {contents}
   </Box>);
