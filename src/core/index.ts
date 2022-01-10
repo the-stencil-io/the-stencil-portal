@@ -8,7 +8,7 @@ import { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, Top
 import intlMessages from './intl';
 
 import {
-  App, AppId
+  App, AppId, MediaQuery
 } from './context/AppAPI';
 
 import {
@@ -56,7 +56,7 @@ import {
 
 declare namespace Portal { //ONLY can export interfaces and types with 'declare namespace'. DOES NOT COMPILE with constants
   export { 
-    AppProviderProps, App, AppId,
+    AppProviderProps, App, AppId, MediaQuery, 
     DrawerContextType, DrawerSession, DrawerActions,
     TabsContextType, TabsSession, TabSession, TabsHistory, TabsActions,
     SecondaryContextType, SecondarySession, SecondaryActions,

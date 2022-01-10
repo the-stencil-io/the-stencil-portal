@@ -2,11 +2,11 @@ import React from 'react';
 import Portal from '../'
 import { IntlProvider } from 'react-intl'
 
-
 import { Toolbar } from './toolbar';
 import { Primary } from './primary/Primary';
 import { Secondary } from './secondary/Secondary';
 import { UI_LANGUAGES, DEFAULT_LOCALE } from './util';
+
 
 
 const app: Portal.App = {
@@ -14,15 +14,18 @@ const app: Portal.App = {
   components: { primary: Primary, secondary: Secondary, toolbar: Toolbar },
   config: {
     mobile: {
-      drawerWidth: 300,
+      breakpoint: (theme, query) => query(theme.breakpoints.down("sm")),
+      drawerWidth: (theme, query) => "100%",
       toolbarHeight: 100
     },
     tablet: {
-      drawerWidth: 400,
+      breakpoint: (theme, query) => query(theme.breakpoints.down("md")),
+      drawerWidth: (theme, query) => 400,
       toolbarHeight: 125
     },
     desktop: {
-      drawerWidth: 500,
+      breakpoint: (theme, query) => query(theme.breakpoints.up("lg")),
+      drawerWidth: (theme, query) => 500,
       toolbarHeight: 150
     }
   },
@@ -35,7 +38,7 @@ const PortalIntl: React.FC<{}> = () => {
   </IntlProvider>);
 }
 
-const PortalApp: React.FC<{}> = (props) => {
+const PortalApp: React.FC<{}> = () => {
   let defaultLocale = "";
   const browserLocale: string = (navigator.languages && navigator.languages[0]) || navigator.language || (navigator as any).userLanguage || 'en-US';
   if (browserLocale.indexOf("-")) {

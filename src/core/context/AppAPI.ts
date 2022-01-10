@@ -1,4 +1,7 @@
+import { Theme, Options } from '@mui/material';
+
 type AppId = string;
+type MediaQuery = (queryInput: string | ((theme: Theme) => string), options?: Options) => boolean;
 
 interface App {
   id: AppId;
@@ -9,15 +12,18 @@ interface App {
   },
   config: {
     mobile: {
-      drawerWidth: number;
+      breakpoint: (theme: Theme, mediaQuery: MediaQuery) => boolean;
+      drawerWidth: (theme: Theme, mediaQuery: MediaQuery) => string | number;
       toolbarHeight: number;
     },
     tablet: {
-      drawerWidth: number;
+      breakpoint: (theme: Theme, mediaQuery: MediaQuery) => boolean;
+      drawerWidth: (theme: Theme, mediaQuery: MediaQuery) => string | number;
       toolbarHeight: number;
     },
     desktop: {
-      drawerWidth: number;
+      breakpoint: (theme: Theme, mediaQuery: MediaQuery) => boolean;
+      drawerWidth: (theme: Theme, mediaQuery: MediaQuery) => string | number;
       toolbarHeight: number;
     }
   }
@@ -33,4 +39,4 @@ interface SecondaryProps {
 
 }
 
-export type { App, AppId };
+export type { App, AppId, MediaQuery };

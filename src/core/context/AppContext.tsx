@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMediaQuery, useTheme } from '@mui/material';
+import { useTheme, useMediaQuery } from '@mui/material';
 
 import * as API from './AppAPI';
 
@@ -21,10 +21,15 @@ const CreateContainer: React.FC<{ app: API.App }> = ({ app }) => {
   const Main = React.useMemo(() => app.components.primary, [app]);
   const Secondary = React.useMemo(() => app.components.secondary, [app]);
   const Toolbar = React.useMemo(() => app.components.toolbar, [app]);
-  
   const theme = useTheme();
-  const small = useMediaQuery(theme.breakpoints.down("sm"));
-  const medium = useMediaQuery(theme.breakpoints.down("md"));
+  
+  const small = app.config.mobile.breakpoint(theme, useMediaQuery);
+  const medium = app.config.tablet.breakpoint(theme, useMediaQuery); 
+  
+  // example
+  //import { useMediaQuery, useTheme, Theme } from '@mui/material';
+  //const small = useMediaQuery(theme.breakpoints.down("sm"));
+  //const medium = useMediaQuery(theme.breakpoints.down("md"));
   
   console.log(`portal: app container/layout Init: '${app.id}', small: ${small}, medium: ${medium}`);
   
@@ -33,7 +38,7 @@ const CreateContainer: React.FC<{ app: API.App }> = ({ app }) => {
   } else if(medium) {
     return (<Tablet main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.tablet}/>)
   }
-    return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.desktop} />);
+  return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.desktop} />);
 }
 
 

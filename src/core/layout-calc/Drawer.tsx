@@ -1,12 +1,12 @@
 import { CSSObject, styled, Drawer, Theme, DrawerProps } from '@mui/material';
 
 interface StyledDrawerProps extends DrawerProps {
-  drawerWidth: number;
+  drawerWidth: number | string;
 }
 
 
-const openedMixin = (theme: Theme, drawerWidth: number): CSSObject => ({
-  width: drawerWidth - 1,
+const openedMixin = (theme: Theme, drawerWidth: number | string): CSSObject => ({
+  width: `calc(${typeof drawerWidth === 'number' ? drawerWidth + 'px' : drawerWidth} - 1px)`,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -28,7 +28,7 @@ const StyledDrawer = styled(Drawer, {
   shouldForwardProp: (prop) => prop !== 'open' && prop !== 'drawerWidth',
 })<StyledDrawerProps>(
   ({ theme, open, drawerWidth }) => ({
-    width: drawerWidth - 1,
+    width: `calc(${typeof drawerWidth === 'number' ? drawerWidth + 'px' : drawerWidth} - 1px)`,
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',

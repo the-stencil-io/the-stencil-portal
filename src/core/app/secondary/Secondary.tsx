@@ -3,8 +3,11 @@ import { Box } from '@mui/material';
 
 import { Topics } from './Topics';
 
+
 const Secondary: React.FC<{}> = () => {
-  return (<Topics />);
+  return (<Box sx={{ backgroundColor: 'primary.main', color: 'primary.contrastText', height: "100%"}}>
+    <Topics />
+  </Box>);
 }
 
 
