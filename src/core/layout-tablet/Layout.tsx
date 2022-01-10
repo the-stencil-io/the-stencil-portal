@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { Theme, Box } from '@mui/material';
+import { Box, Theme } from '@mui/material';
 import { SxProps } from '@mui/system';
 import { styled } from "@mui/material/styles";
 
 import StyledToolbar from './Toolbar';
 import StyledAppBar from './Appbar';
 import StyledDrawer from '../layout-calc/Drawer';
+
 import { MediaQuery } from '../context/AppAPI';
 import { useDrawer } from '../context/drawer/DrawerContext';
 import { LayoutCalc } from '../layout-calc/LayoutCalc';
@@ -19,20 +20,11 @@ interface ContainerProps {
   config: {
     drawerWidth: (theme: Theme, mediaQuery: MediaQuery) => string | number,
     toolbarHeight: number,
+    main: SxProps,
+    secondary: SxProps
   }
 };
 
-const drawerStyle: SxProps = {
-  display: 'flex',
-  overflowY: "scroll",
-  height: "100vh"
-};
-
-
-const StyledMain = styled("main")(() => ({
-  width: "100%",
-  height: "100%"
-}));
 
 
 const Container: React.FC<ContainerProps> = (components) => {
@@ -44,25 +36,24 @@ const Container: React.FC<ContainerProps> = (components) => {
   const secondaryWindow = React.useMemo(() => secondary, [secondary]);
   const toolbarWindow = React.useMemo(() => toolbar, [toolbar]);
 
+
   return (<LayoutCalc config={config} children={(styles) => (
     <>
-    <StyledAppBar position="fixed">
-      <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} sx={{ alignItems: 'self-start' }}>
-        {toolbarWindow}
-      </StyledToolbar>
-    </StyledAppBar>
+      <StyledAppBar position="fixed">
+        <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} sx={{ alignItems: 'self-start' }}>
+          {toolbarWindow}
+        </StyledToolbar>
+      </StyledAppBar>
 
-    <StyledDrawer variant="permanent" open={drawerOpen} drawerWidth={styles.drawerWidth}>
-      <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight}  />
-      <Box sx={drawerStyle}>
+      <StyledDrawer variant="permanent" open={drawerOpen} drawerWidth={styles.drawerWidth}>
+        <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} />
         {drawerOpen ? (<Box sx={styles.secondary}>{secondaryWindow}</Box>) : null}
-      </Box>
-    </StyledDrawer>
+      </StyledDrawer>
 
-    <StyledMain>
-      <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} />
+      <main>
+        <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} />
         <Box sx={styles.main}>{mainWindow}</Box>
-    </StyledMain>
+      </main>
     </>)
   } />);
 }

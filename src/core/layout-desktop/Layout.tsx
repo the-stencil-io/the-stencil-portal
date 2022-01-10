@@ -20,20 +20,11 @@ interface ContainerProps {
   config: {
     drawerWidth: (theme: Theme, mediaQuery: MediaQuery) => string | number,
     toolbarHeight: number,
+    main: SxProps,
+    secondary: SxProps
   }
 };
 
-const drawerStyle: SxProps = {
-  display: 'flex',
-  overflowY: "scroll",
-  height: "100vh"
-};
-
-
-const StyledMain = styled("main")(() => ({
-  width: "100%",
-  height: "100%"
-}));
 
 
 const Container: React.FC<ContainerProps> = (components) => {
@@ -56,15 +47,13 @@ const Container: React.FC<ContainerProps> = (components) => {
 
       <StyledDrawer variant="permanent" open={drawerOpen} drawerWidth={styles.drawerWidth}>
         <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} />
-        <Box sx={drawerStyle}>
-          {drawerOpen ? (<Box sx={styles.secondary}>{secondaryWindow}</Box>) : null}
-        </Box>
+        {drawerOpen ? (<Box sx={styles.secondary}>{secondaryWindow}</Box>) : null}
       </StyledDrawer>
 
-      <StyledMain>
+      <main>
         <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} />
         <Box sx={styles.main}>{mainWindow}</Box>
-      </StyledMain>
+      </main>
     </>)
   } />);
 }

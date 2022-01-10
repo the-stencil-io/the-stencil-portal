@@ -5,7 +5,7 @@ import { Content } from './Content';
 
 const Primary: React.FC<{}> = () => {
   return (
-    <Box sx={{m: 2}}>
+    <Box sx={{p: 2}}>
       <Content />
     </Box>
   );

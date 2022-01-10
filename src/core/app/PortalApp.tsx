@@ -1,13 +1,28 @@
 import React from 'react';
-import Portal from '../'
 import { IntlProvider } from 'react-intl'
+import { SxProps } from '@mui/system';
 
+import Portal from '../'
 import { Toolbar } from './toolbar';
 import { Primary } from './primary/Primary';
 import { Secondary } from './secondary/Secondary';
 import { UI_LANGUAGES, DEFAULT_LOCALE } from './util';
 
 
+const scroll: SxProps = {
+  overflowY: "scroll",
+  '&::-webkit-scrollbar': {
+    width: '0.7em',
+  },
+  '&::-webkit-scrollbar-track': {
+    borderRadius: '15px',
+    backgroundColor: 'primary.light'
+  },
+  '&::-webkit-scrollbar-thumb': {
+    borderRadius: '15px',
+    backgroundColor: 'primary.main',
+  },
+}
 
 const app: Portal.App = {
   id: "demoApp",
@@ -16,17 +31,23 @@ const app: Portal.App = {
     mobile: {
       breakpoint: (theme, query) => query(theme.breakpoints.down("sm")),
       drawerWidth: (theme, query) => "100%",
-      toolbarHeight: 100
+      toolbarHeight: 100,
+      main: scroll,
+      secondary: scroll
     },
     tablet: {
       breakpoint: (theme, query) => query(theme.breakpoints.down("md")),
       drawerWidth: (theme, query) => 400,
-      toolbarHeight: 125
+      toolbarHeight: 125,
+      main: scroll,
+      secondary: scroll
     },
     desktop: {
       breakpoint: (theme, query) => query(theme.breakpoints.up("lg")),
       drawerWidth: (theme, query) => 500,
-      toolbarHeight: 150
+      toolbarHeight: 150,
+      main: scroll,
+      secondary: scroll
     }
   },
 }
