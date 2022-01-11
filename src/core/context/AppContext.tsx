@@ -21,7 +21,7 @@ const CreateContainer: React.FC<{ app: API.App }> = ({ app }) => {
   const Main = React.useMemo(() => app.components.primary, [app]);
   const Secondary = React.useMemo(() => app.components.secondary, [app]);
   const Toolbar = React.useMemo(() => app.components.toolbar, [app]);
-  const mode = useBreakpoint();  
+  const mode = useBreakpoint();
 
   // example
   //import { useMediaQuery, useTheme, Theme } from '@mui/material';
@@ -53,15 +53,16 @@ const AppProvider: React.FC<AppProviderProps> = (props: AppProviderProps) => {
 
   console.log("portal: App Provider Init");
   return (
-    <BreakpointProvider app={props.children}>
-      <DrawerProvider drawerOpen={props.drawerOpen}>
-        <TabsProvider appId={id}>
-          <SecondaryProvider appId={id} secondary={props.secondaryOpen}>
+    <DrawerProvider drawerOpen={props.drawerOpen}>
+      <TabsProvider appId={id}>
+        <SecondaryProvider appId={id} secondary={props.secondaryOpen}>
+          <BreakpointProvider app={props.children}>
             <AppInit children={props.children} />
-          </SecondaryProvider>
-        </TabsProvider>
-      </DrawerProvider>
-    </BreakpointProvider>);
+          </BreakpointProvider>
+        </SecondaryProvider>
+      </TabsProvider>
+    </DrawerProvider>
+  );
 };
 
 export type { AppProviderProps };
