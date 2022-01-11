@@ -1,8 +1,8 @@
 import React from 'react';
-import { useTheme, useMediaQuery } from '@mui/material';
 
 import * as API from './AppAPI';
 
+import { BreakpointProvider, useBreakpoint } from './breakpoint/BreakpointContext';
 import { DrawerProvider } from './drawer/DrawerContext';
 import { TabsProvider } from './tabs/TabsContext';
 import { SecondaryProvider } from './secondary/SecondaryContext';
@@ -21,22 +21,19 @@ const CreateContainer: React.FC<{ app: API.App }> = ({ app }) => {
   const Main = React.useMemo(() => app.components.primary, [app]);
   const Secondary = React.useMemo(() => app.components.secondary, [app]);
   const Toolbar = React.useMemo(() => app.components.toolbar, [app]);
-  const theme = useTheme();
-  
-  const small = app.config.mobile.breakpoint(theme, useMediaQuery);
-  const medium = app.config.tablet.breakpoint(theme, useMediaQuery); 
-  
+  const mode = useBreakpoint();  
+
   // example
   //import { useMediaQuery, useTheme, Theme } from '@mui/material';
   //const small = useMediaQuery(theme.breakpoints.down("sm"));
   //const medium = useMediaQuery(theme.breakpoints.down("md"));
-  
-  console.log(`portal: app container/layout Init: '${app.id}', small: ${small}, medium: ${medium}`);
-  
-  if(small) {
+
+  console.log(`portal: app container/layout Init: '${app.id}', mode: ${mode}`);
+
+  if (mode === 'MOBILE') {
     return (<Mobile main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.mobile} />);
-  } else if(medium) {
-    return (<Tablet main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.tablet}/>)
+  } else if (mode === "TABLET") {
+    return (<Tablet main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.tablet} />)
   }
   return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.desktop} />);
 }
@@ -56,13 +53,15 @@ const AppProvider: React.FC<AppProviderProps> = (props: AppProviderProps) => {
 
   console.log("portal: App Provider Init");
   return (
-    <DrawerProvider drawerOpen={props.drawerOpen}>
-      <TabsProvider appId={id}>
-        <SecondaryProvider appId={id} secondary={props.secondaryOpen}>
-          <AppInit children={props.children} />
-        </SecondaryProvider>
-      </TabsProvider>
-    </DrawerProvider>);
+    <BreakpointProvider app={props.children}>
+      <DrawerProvider drawerOpen={props.drawerOpen}>
+        <TabsProvider appId={id}>
+          <SecondaryProvider appId={id} secondary={props.secondaryOpen}>
+            <AppInit children={props.children} />
+          </SecondaryProvider>
+        </TabsProvider>
+      </DrawerProvider>
+    </BreakpointProvider>);
 };
 
 export type { AppProviderProps };

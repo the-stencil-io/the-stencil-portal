@@ -53,7 +53,7 @@ const Container: React.FC<ContainerProps> = (components) => {
         {drawerOpen ? (<Box sx={styles.secondary}>{secondaryWindow}</Box>) : null}
       </StyledDrawer>
 
-      <StyledMain >
+      <StyledMain>
         <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} />
         <Box sx={styles.main}>{mainWindow}</Box>
       </StyledMain>

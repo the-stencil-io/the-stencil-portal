@@ -18,6 +18,12 @@ import {
   DrawerProvider as DrawerProviderAs
 } from './context/drawer/DrawerContext';
 
+import {
+  BreakpointProvider as BreakpointProviderAs,
+  useBreakpoint as useBreakpointAs,
+  BreakpointMode, BreakpointContextType
+} from './context/breakpoint/BreakpointContext';
+
 
 import {
   TabsContextType, TabsSession, TabSession, TabsHistory, TabsActions
@@ -61,6 +67,7 @@ declare namespace Portal { //ONLY can export interfaces and types with 'declare 
     TabsContextType, TabsSession, TabSession, TabsHistory, TabsActions,
     SecondaryContextType, SecondarySession, SecondaryActions,
     SiteContextType, SiteState, SiteProviderProps, SiteConfigEvents,
+    BreakpointMode, BreakpointContextType,
     LocaleCode, FallbackSites,
     ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType,
   };
@@ -72,8 +79,10 @@ namespace Portal { //export the constants
   export const DrawerProvider = DrawerProviderAs;
   export const TabsProvider = TabsProviderAs;
   export const SecondaryProvider = SecondaryProviderAs;
+  export const BreakpointProvider = BreakpointProviderAs;
   export const Provider = AppProvider;
   
+  export const useBreakpoint = useBreakpointAs; 
   export const useDrawer = useDrawerAlias;
   export const useTabs = useTabsAlias;
   export const useSecondary = useSecondaryAlias;
