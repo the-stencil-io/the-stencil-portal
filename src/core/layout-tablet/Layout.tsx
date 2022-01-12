@@ -26,6 +26,10 @@ interface ContainerProps {
 };
 
 
+const StyledMain = styled("main")(() => ({
+  width: "100%",
+  height: "100%"
+}));
 
 const Container: React.FC<ContainerProps> = (components) => {
   const layout = useDrawer();
@@ -50,10 +54,10 @@ const Container: React.FC<ContainerProps> = (components) => {
         {drawerOpen ? (<Box sx={styles.secondary}>{secondaryWindow}</Box>) : null}
       </StyledDrawer>
 
-      <main>
+      <StyledMain>
         <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} />
         <Box sx={styles.main}>{mainWindow}</Box>
-      </main>
+      </StyledMain>
     </>)
   } />);
 }
