@@ -54,7 +54,7 @@ interface Service {
 }
 
 interface ServiceConfig {
-  content: { url: string };
+  content: { url: string, predefined?: Site };
   fallbackSites?: FallbackSites;
   defaultLocale: string;
   dev?: boolean;
