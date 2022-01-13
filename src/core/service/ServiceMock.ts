@@ -22,6 +22,10 @@ class ServiceMock implements Api.Service, Store {
 
 
   async getSite(locale: string): Promise<Api.Site> {
+    if(this._config.content.predefined) {
+      return this._config.content.predefined;
+    }
+    
     return MockSites(locale).content;
     /*
     return this.fetch<Api.Site>(this._config.content.url + "?locale=" + locale)
