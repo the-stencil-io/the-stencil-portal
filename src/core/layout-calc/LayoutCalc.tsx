@@ -28,7 +28,11 @@ const LayoutCalc: React.FC<LayoutCalcProps> = ({ config, children }) => {
   const drawerWidth = React.useMemo(() => config.drawerWidth(theme, useMediaQuery), [theme, useMediaQuery, config.drawerWidth]);
   const main: SxProps = React.useMemo(() => {
     if (drawerOpen) {
-      return Object.assign({ flexGrow: 1, height: `calc(100vh - ${config.toolbarHeight}px)`, width: `calc(100vw - ${drawerWidth})` }, config.main({drawerOpen}));
+      return Object.assign({ 
+        flexGrow: 1, 
+        height: `calc(100vh - ${config.toolbarHeight}px)`, 
+        width: `calc(100vw - ${typeof drawerWidth === 'number' ? drawerWidth + 'px' : drawerWidth})` 
+      }, config.main({drawerOpen}));
     }
     return Object.assign({ flexGrow: 1, height: `calc(100vh - ${config.toolbarHeight}px)` }, config.main({drawerOpen}));
   }, [drawerOpen, config.toolbarHeight, drawerWidth, config.main])
