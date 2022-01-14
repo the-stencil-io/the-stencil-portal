@@ -5,8 +5,8 @@ interface StyledDrawerProps extends DrawerProps {
 }
 
 
-const openedMixin = (theme: Theme, drawerWidth: number | string): CSSObject => ({
-  width: `calc(${typeof drawerWidth === 'number' ? drawerWidth + 'px' : drawerWidth} + 1px)`,
+const openedMixin = (theme: Theme, drawerWidth: string): CSSObject => ({
+  width: drawerWidth,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -32,8 +32,8 @@ const StyledDrawer = styled(Drawer, {
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
     ...(open && {
-      ...openedMixin(theme, drawerWidth),
-      '& .MuiDrawer-paper': openedMixin(theme, drawerWidth),
+      ...openedMixin(theme, `calc(${typeof drawerWidth === 'number' ? drawerWidth + 'px' : drawerWidth})`),
+      '& .MuiDrawer-paper': openedMixin(theme, `calc(${typeof drawerWidth === 'number' ? drawerWidth + 'px' : drawerWidth} + 1px)`),
     }),
     ...(!open && {
       ...closedMixin(theme),

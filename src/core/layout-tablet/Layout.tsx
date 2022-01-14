@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { Box, Theme } from '@mui/material';
-import { SxProps } from '@mui/system';
+import { Box } from '@mui/material';
 import { styled } from "@mui/material/styles";
 
 import StyledToolbar from './Toolbar';
 import StyledAppBar from './Appbar';
 import StyledDrawer from '../layout-calc/Drawer';
 
-import { MediaQuery } from '../context/AppAPI';
+import { BreakpointConfig } from '../context/AppAPI';
 import { useDrawer } from '../context/drawer/DrawerContext';
 import { LayoutCalc } from '../layout-calc/LayoutCalc';
 
@@ -17,12 +16,7 @@ interface ContainerProps {
   main: React.ReactElement;
   secondary: React.ReactElement;
   toolbar: React.ReactElement;
-  config: {
-    drawerWidth: (theme: Theme, mediaQuery: MediaQuery) => string | number,
-    toolbarHeight: number,
-    main: SxProps,
-    secondary: SxProps
-  }
+  config: BreakpointConfig;
 };
 
 

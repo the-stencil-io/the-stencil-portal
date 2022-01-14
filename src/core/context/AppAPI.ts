@@ -3,6 +3,7 @@ import { SxProps } from '@mui/system';
 
 type AppId = string;
 type MediaQuery = (queryInput: string | ((theme: Theme) => string), options?: Options) => boolean;
+type StyleQuery = (props: { drawerOpen: boolean }) => SxProps;
 
 interface App {
   id: AppId;
@@ -12,28 +13,18 @@ interface App {
     secondary: React.ElementType<SecondaryProps>;
   },
   config: {
-    mobile: {
-      breakpoint: (theme: Theme, mediaQuery: MediaQuery) => boolean;
-      drawerWidth: (theme: Theme, mediaQuery: MediaQuery) => string | number;
-      toolbarHeight: number;
-      main: SxProps;
-      secondary: SxProps;
-    },
-    tablet: {
-      breakpoint: (theme: Theme, mediaQuery: MediaQuery) => boolean;
-      drawerWidth: (theme: Theme, mediaQuery: MediaQuery) => string | number;
-      toolbarHeight: number;
-      main: SxProps;
-      secondary: SxProps;
-    },
-    desktop: {
-      breakpoint: (theme: Theme, mediaQuery: MediaQuery) => boolean;
-      drawerWidth: (theme: Theme, mediaQuery: MediaQuery) => string | number;
-      toolbarHeight: number;
-      main: SxProps;
-      secondary: SxProps;
-    }
+    mobile: BreakpointConfig,
+    tablet: BreakpointConfig,
+    desktop: BreakpointConfig
   }
+}
+
+interface BreakpointConfig {
+  breakpoint: (theme: Theme, mediaQuery: MediaQuery) => boolean;
+  drawerWidth: (theme: Theme, mediaQuery: MediaQuery) => string | number;
+  toolbarHeight: number;
+  main: StyleQuery;
+  secondary: StyleQuery;  
 }
 
 interface ToolbarProps {
@@ -46,4 +37,4 @@ interface SecondaryProps {
 
 }
 
-export type { App, AppId, MediaQuery };
+export type { App, AppId, MediaQuery, StyleQuery, BreakpointConfig };

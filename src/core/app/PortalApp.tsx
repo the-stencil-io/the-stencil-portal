@@ -10,7 +10,7 @@ import { UI_LANGUAGES, DEFAULT_LOCALE } from './util';
 
 
 const scroll: SxProps = {
-  overflowY: "scroll",
+  overflowY: "auto",
   '&::-webkit-scrollbar': {
     width: '0.7em',
   },
@@ -32,22 +32,22 @@ const app: Portal.App = {
       breakpoint: (theme, query) => query(theme.breakpoints.down("sm")),
       drawerWidth: (theme, query) => "100%",
       toolbarHeight: 100,
-      main: scroll,
-      secondary: scroll
+      main: ({drawerOpen}) => drawerOpen ? {display: "none"} : scroll,
+      secondary: ({drawerOpen}) => scroll,
     },
     tablet: {
       breakpoint: (theme, query) => query(theme.breakpoints.down("md")),
       drawerWidth: (theme, query) => 400,
       toolbarHeight: 125,
-      main: scroll,
-      secondary: scroll
+      main: ({drawerOpen}) => scroll,
+      secondary: ({drawerOpen}) => scroll,
     },
     desktop: {
       breakpoint: (theme, query) => query(theme.breakpoints.up("lg")),
       drawerWidth: (theme, query) => 500,
       toolbarHeight: 150,
-      main: scroll,
-      secondary: scroll
+      main: ({drawerOpen}) => scroll,
+      secondary: ({drawerOpen}) => scroll,
     }
   },
 }
