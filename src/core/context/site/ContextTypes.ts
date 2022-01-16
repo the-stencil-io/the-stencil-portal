@@ -15,18 +15,18 @@ interface SiteContextType {
   setTopic: (newTopic: Api.Topic) => void;
 }
 
-interface SiteConfigEvents {
-  setTopic?: (newTopic: Api.Topic) => void;
-  setLink?: (newLink?: Api.TopicLink) => void;
-  setSite?: (newSite: Api.Site) => void;
+interface SiteActionOverrides {
+  setTopic?: (state: SiteState, newTopic?: Api.Topic) => Api.Topic | undefined;
+  setLink?: (state: SiteState, newLink?: Api.TopicLink) => Api.TopicLink | undefined;
+  setSite?: (state: SiteState, newSite?: Api.Site) => Api.Site | undefined;
 }
 
 const initContext = (
   state: SiteState,
   service: Api.Service,
   dispatch: React.Dispatch<ContextAction>,
-  events?: SiteConfigEvents
-  ): SiteContextType => {
+  overrides: SiteActionOverrides
+): SiteContextType => {
 
   return {
     service: service,
@@ -38,51 +38,42 @@ const initContext = (
       if (!state.site) {
         return undefined;
       }
-      if(!topic && !state.topic) {
+      if (!topic && !state.topic) {
         return undefined;
       }
-      
-      let targetTopic = topic ? topic: state.topic;
-      if(!targetTopic?.blob) {
+
+      let targetTopic = topic ? topic : state.topic;
+      if (!targetTopic?.blob) {
         return undefined
       }
       return state.site.blobs[targetTopic.blob];
     },
-    setSite: (site?: Api.Site) => {
-      dispatch({ type: "setSite", site })
-      if(site && events && events.setSite) {
-        events.setSite(site);  
-      }
-      
-    },
-
-    setTopic: (newTopic: Api.Topic) => {
-      dispatch({ type: "setTopic", topic: newTopic })
-      if(events && events.setTopic) {
-        events.setTopic(newTopic);  
-      }
-      
-    },
-
     setLocale: (newLocale: string) => {
       if (state.locale === newLocale) {
         return;
       }
-      service.getSite(newLocale).then(site => {
+      service.getSite(newLocale).then(apiSite => {
+        const site = overrides.setSite ? overrides.setSite(state, apiSite) : apiSite;
         dispatch({ type: "setSite", site: site })
         dispatch({ type: "setLocale", locale: newLocale })
 
         if (state.topic) {
-          dispatch({ type: "setTopic", topic: site.topics[state.topic.id] })
+          dispatch({ type: "setTopic", topic: site? site.topics[state.topic.id] : undefined })
         }
 
       });
-
     },
-    setLink: (newLink?: Api.TopicLink) => {
-      if(events && events.setLink) {
-        events.setLink(newLink);  
-      }
+
+    setSite: (apiSite?: Api.Site) => {
+      const site = overrides.setSite ? overrides.setSite(state, apiSite) : apiSite;
+      dispatch({ type: "setSite", site })
+    },
+    setTopic: (apiTopic: Api.Topic) => {
+      const newTopic = overrides.setTopic ? overrides.setTopic(state, apiTopic) : apiTopic;
+      dispatch({ type: "setTopic", topic: newTopic })
+    },
+    setLink: (apiLink?: Api.TopicLink) => {
+      const newLink = overrides.setLink ? overrides.setLink(state, apiLink) : apiLink
       if (newLink && !(newLink.type === "dialob" || newLink.type === "workflow")) {
         return;
       }
@@ -91,5 +82,5 @@ const initContext = (
   };
 }
 
-export type { SiteContextType, SiteConfigEvents };
+export type { SiteContextType, SiteActionOverrides };
 export { initContext };

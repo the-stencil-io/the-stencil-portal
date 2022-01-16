@@ -46,7 +46,7 @@ import {
   SiteProvider as SiteProviderAs, SiteProviderProps
 } from './context/site/Context';
 import {
-  SiteContextType, SiteConfigEvents
+  SiteContextType, SiteActionOverrides
 } from './context/site/ContextTypes';
 import {
   SiteState
@@ -66,7 +66,7 @@ declare namespace Portal { //ONLY can export interfaces and types with 'declare 
     DrawerContextType, DrawerSession, DrawerActions,
     TabsContextType, TabsSession, TabSession, TabsHistory, TabsActions,
     SecondaryContextType, SecondarySession, SecondaryActions,
-    SiteContextType, SiteState, SiteProviderProps, SiteConfigEvents,
+    SiteContextType, SiteState, SiteProviderProps, SiteActionOverrides,
     BreakpointMode, BreakpointContextType,
     LocaleCode, FallbackSites, 
     ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType,
