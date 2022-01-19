@@ -8,7 +8,7 @@ import { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, Top
 import intlMessages from './intl';
 
 import {
-  App, AppId, MediaQuery, StyleQuery, BreakpointConfig
+  App, AppId, MediaQuery, StyleQuery, BreakpointConfig, ToolbarProps, PrimaryProps, SecondaryProps
 } from './context/AppAPI';
 
 import {
@@ -70,6 +70,7 @@ declare namespace Portal { //ONLY can export interfaces and types with 'declare 
     BreakpointMode, BreakpointContextType,
     LocaleCode, FallbackSites, 
     ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType,
+    ToolbarProps, PrimaryProps, SecondaryProps
   };
   export {  }
 }

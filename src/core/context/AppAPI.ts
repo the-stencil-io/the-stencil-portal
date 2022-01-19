@@ -37,13 +37,15 @@ interface BreakpointConfig {
 }
 
 interface ToolbarProps {
+  //sx: SxProps
 }
 
 interface PrimaryProps {
+  sx: SxProps
 
 }
 interface SecondaryProps {
-
+  //sx: SxProps
 }
 
-export type { App, AppId, MediaQuery, StyleQuery, BreakpointConfig, AppOverrides };
+export type { App, AppId, MediaQuery, StyleQuery, BreakpointConfig, AppOverrides, ToolbarProps, PrimaryProps, SecondaryProps };

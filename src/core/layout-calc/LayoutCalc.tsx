@@ -7,14 +7,15 @@ import { BreakpointConfig } from '../context/AppAPI';
 import { useDrawer } from '../context/drawer/DrawerContext';
 
 
+interface LayoutCalcCallbackProps {
+  secondary: SxProps, 
+  main: SxProps,
+  drawerWidth: string | number  
+}
+
 interface LayoutCalcProps {
   config: BreakpointConfig,
-  children: (props:
-    {
-      secondary: SxProps, 
-      main: SxProps,
-      drawerWidth: string | number
-    }) => React.ReactNode
+  children: (props: LayoutCalcCallbackProps) => React.ReactNode
 }
 
 const LayoutCalc: React.FC<LayoutCalcProps> = ({ config, children }) => {
@@ -46,4 +47,4 @@ const LayoutCalc: React.FC<LayoutCalcProps> = ({ config, children }) => {
   </Box>);
 }
 
-export { LayoutCalc, LayoutCalcProps };
+export { LayoutCalc, LayoutCalcProps, LayoutCalcCallbackProps };

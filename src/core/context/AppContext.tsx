@@ -15,34 +15,23 @@ interface AppProviderProps {
   children: API.App;
 }
 
-const CreateContainer: React.FC<{ app: API.App }> = ({ app }) => {
-  const Main = React.useMemo(() => app.components.primary, [app]);
-  const Secondary = React.useMemo(() => app.components.secondary, [app]);
-  const Toolbar = React.useMemo(() => app.components.toolbar, [app]);
-  const mode = useBreakpoint();
-
-  // example
-  //import { useMediaQuery, useTheme, Theme } from '@mui/material';
-  //const small = useMediaQuery(theme.breakpoints.down("sm"));
-  //const medium = useMediaQuery(theme.breakpoints.down("md"));
-
-  console.log(`portal: app container/layout Init: '${app.id}', mode: ${mode}`);
-
-  if (mode === 'MOBILE') {
-    return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.mobile} />);
-  } else if (mode === "TABLET") {
-    return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.tablet} />)
-  }
-  return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.desktop} />);
-}
-
 
 const AppInit: React.FC<{ children: API.App }> = ({ children }) => {
-  const app = children;
-
-  console.log(`portal: app context init: '${app.id}'`);
-  const container = React.useMemo(() => (<CreateContainer app={app} />), [app]);
-  return (<>{container}</>);
+  const mode = useBreakpoint();
+  console.log(`portal: app container/layout Init: '${children.id}', mode: ${mode}`);
+  
+  return React.useMemo(() => {
+    const { config, components } = children;
+    const {primary, secondary, toolbar} = components;
+    
+    if (mode === 'MOBILE') {
+      return (<Container primary={primary} secondary={secondary} toolbar={toolbar} config={config.mobile} />);
+    } else if (mode === "TABLET") {
+      return (<Container primary={primary} secondary={secondary} toolbar={toolbar} config={config.tablet} />)
+    }
+    
+    return (<Container primary={primary} secondary={secondary} toolbar={toolbar} config={config.desktop} />);
+  }, [children, mode]);
 }
 
 
