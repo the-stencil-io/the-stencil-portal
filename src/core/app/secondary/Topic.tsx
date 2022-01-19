@@ -18,43 +18,53 @@ interface TopicProps {
 
 
 const Topic: React.FC<TopicProps> = ({ value }) => {
+
+  const { site, actions, topic } = Portal.useSite();
   const [open, setOpen] = React.useState(false);
-  const { setTopic, site } = Portal.useSite();
+  const active = value.id === topic?.id;
 
-  const subTopics = Object.values(site?.topics ? site?.topics : {})
-    .filter(t => t.parent === value.id)
-    .map((sub, index) => (
-      <ListItem key={index} button selected={true} sx={{ ml: 3 }} onClick={() => setTopic(sub)}>
-        <ListItemText secondary={sub.name} />
-      </ListItem>
-    ));
-  const length = subTopics.length;
+  return React.useMemo(() => {
+    console.log("rendering topic");
 
-  const onMainTopicClick = () => {
-    if (!open || length === 0) {
-      setTopic(value);
-    }
-    setOpen(!open);
-  
-  };
+    const subTopics = Object.values(site?.topics ? site?.topics : {})
+      .filter(t => t.parent === value.id)
+      .map((sub, index) => (
+        <ListItem key={index} button selected={true} sx={{ ml: 3 }} onClick={() => actions.setTopic(sub)}>
+          <ListItemText secondary={sub.name} />
+        </ListItem>
+      ));
+    const length = subTopics.length;
 
-  const mainTopicName = length > 0 ? `${value.name} (${length})` : `${value.name}`;
-  return (
-    <Box whiteSpace="normal">
-      <ListItem button onClick={onMainTopicClick} >
-        <ListItemText primary={mainTopicName} sx={{ color: 'text.secondary' }} />
-        {length === 0 ? null :
-          (open ? <ExpandLess sx={{color: 'text.secondary'}}/> : <ExpandMore sx={{color: 'text.secondary'}} />
-          )
-        }
-      </ListItem >
+    const onMainTopicClick = () => {
+      if (!open || length === 0) {
+        actions.setTopic(value);
+      }
+      setOpen(!open);
 
-      <Collapse in={open} timeout="auto" unmountOnExit sx={{backgroundColor: (theme) => alpha(theme.palette.secondary.main, 0.1), ml: 2 }}>
-        <List component="div" disablePadding dense 
-           sx={{ backgroundColor: (theme) => alpha(theme.palette.secondary.main, 0.3), width: 10}}>{subTopics}</List>
-      </Collapse>
-    </Box>
-  );
+    };
+
+    const mainTopicName = length > 0 ? `${value.name} (${length})` : `${value.name}`;
+    return (
+      <Box whiteSpace="normal">
+        <ListItem button onClick={onMainTopicClick}  sx={{ backgroundColor: active ? "white" : undefined }}>
+          <ListItemText primary={mainTopicName} sx={{ color: 'text.secondary' }} />
+          {length === 0 ? null :
+            (open ? <ExpandLess sx={{ color: 'text.secondary' }} /> : <ExpandMore sx={{ color: 'text.secondary' }} />
+            )
+          }
+        </ListItem >
+
+        <Collapse in={open} timeout="auto" unmountOnExit sx={{ backgroundColor: (theme) => alpha(theme.palette.secondary.main, 0.1), ml: 2 }}>
+          <List component="div" disablePadding dense
+            sx={{ backgroundColor: (theme) => alpha(theme.palette.secondary.main, 0.3), width: 10 }}>{subTopics}</List>
+        </Collapse>
+      </Box>
+    );
+
+
+  }, [actions, site, open, setOpen, active]);
+
+
 
 }
 export { Topic }
