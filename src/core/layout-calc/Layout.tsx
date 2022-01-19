@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, SxProps } from '@mui/material';
+import { Box } from '@mui/material';
 import { styled } from "@mui/material/styles";
 
 import StyledToolbar from './Toolbar';
@@ -32,10 +32,12 @@ const ContainerComponents: React.FC<{ components: ContainerProps, calc: LayoutCa
     secondary: Secondary,
     toolbar: Toolbar 
   } = components;
+  
+  const {main} = calc;
 
-  const primaryWindow = React.useMemo(() => <Primary sx={calc.main}/>, [components.primary, calc.main]);
-  const secondaryWindow = React.useMemo(() => <Secondary />, [components.secondary]);
-  const toolbarWindow = React.useMemo(() => <Toolbar />, [components.toolbar]);
+  const primaryWindow = React.useMemo(() => <Primary sx={main}/>, [Primary, main]);
+  const secondaryWindow = React.useMemo(() => <Secondary />, [Secondary]);
+  const toolbarWindow = React.useMemo(() => <Toolbar />, [Toolbar]);
 
 
   return (<>

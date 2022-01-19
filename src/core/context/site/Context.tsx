@@ -10,28 +10,30 @@ interface SiteProviderProps {
   overrides?: SiteActionOverrides;
 }
 
-const initState = (defaultLocale: string): SiteState => {
-  console.log("init state");
-  return new ImmutableSiteState(defaultLocale, {});
+const initState = (defaultLocale: string, service: Service): SiteState => {
+  console.log("portal: site state init");
+  return new ImmutableSiteState(defaultLocale, { site: service.getSiteLoading(defaultLocale)});
 };
 
 const SiteProvider: React.FC<SiteProviderProps> = (props) => {
   const { overrides, defaultLocale } = props;
   const service: Service = React.useMemo(() => props.service, [props.service])
-  const [state, dispatch] = React.useReducer(contextReducer, React.useMemo(() => initState(defaultLocale), [defaultLocale]));
+  const init = React.useMemo(() => initState(defaultLocale, service), [defaultLocale, service]);
+  const [state, dispatch] = React.useReducer(contextReducer, init);
   const contextValue = React.useMemo(() => initContext(state, service, dispatch, overrides ? overrides : {}), [state, service, dispatch, overrides]);
 
+  console.log("portal: site init");
+  
   // load site
   React.useEffect(() => {
     if (!state.loaded) {
-      dispatch({ type: "setSite", site: service.getSiteLoading(state.locale) })
+      console.log("portal: site init loader");
 
       service.getSite(state.locale).then(site => {
-        dispatch({ type: "setTopic" });
         if (site) {
           dispatch({ type: "setSite", site })
         }
-      });
+      })
 
     }
   }, [service, state.locale, state.loaded, dispatch]);

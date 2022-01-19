@@ -45,42 +45,42 @@ const Markdown: React.FC<MarkdownViewProps> = ({ children }) => {
           image: Renderers.Image,
           h1: (props) => {
 
-            console.log(props)
+            
             if (small) {
               return <div style={{ "fontSize": '16pt' }}>{props.children}</div>
             } return <div style={{ "fontSize": '25pt' }}>{props.children}</div>;
           },
           h2: (props) => {
 
-            console.log(props)
+            
             if (small) {
               return <div style={{ "fontSize": '13pt' }}>{props.children}</div>
             } return <div style={{ "fontSize": "20pt" }}>{props.children}</div>;
           },
           h3: (props) => {
 
-            console.log(props)
+            
             if (small) {
               return <div style={{ "fontSize": '11pt' }}>{props.children}</div>
             } return <div style={{ "fontSize": "18pt" }}>{props.children}</div>;
           },
           h4: (props) => {
 
-            console.log(props)
+            
             if (small) {
               return <div style={{ "fontSize": '9pt' }}>{props.children}</div>
             } return <div style={{ "fontSize": "18pt" }}>{props.children}</div>;
           },
           h5: (props) => {
 
-            console.log(props)
+            
             if (small) {
               return <div style={{ "fontSize": '9pt' }}>{props.children}</div>
             } return <div style={{ "fontSize": "18pt" }}>{props.children}</div>;
           },
           h6: (props) => {
 
-            console.log(props)
+            
             if (small) {
               return <div style={{ "fontSize": '9pt' }}>{props.children}</div>
             } return <div style={{ "fontSize": "18pt" }}>{props.children}</div>;

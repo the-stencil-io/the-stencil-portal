@@ -5,6 +5,7 @@ interface Site {
   id: string;
   images: string;
   locale: string;
+  loader?: boolean;
 
   topics: Record<string, Topic>;
   blobs: Record<string, Blob>;

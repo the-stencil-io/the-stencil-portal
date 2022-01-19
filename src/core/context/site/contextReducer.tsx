@@ -31,7 +31,7 @@ class ImmutableSiteState implements SiteState {
     parent?: SiteState;
   }) {
     this._locale = locale;
-    this._loaded = init.site != null;
+    this._loaded = init.site != null && init.site.loader !== true;
     this._site = init.site;
     this._topic = init.topic;
     this._link = init.link;
@@ -97,16 +97,22 @@ const contextReducer = (oldState: SiteState, action: ContextAction): SiteState =
         return oldState;
       }
 
-      const newState = oldState
-        .withSite(action.site)
+      const newState = oldState.withSite(action.site)
 
       if (!newState.topic) {
         const records = newState.site?.topics;
         const topics = Object.values(records ? records : {})
           .filter(t => !t.parent)
           .sort((t1, t2) => t1.id.localeCompare(t2.id));
-
         if (topics.length) {
+          
+          if(oldState.topic?.id) {
+            const changeTopicLocale = topics.filter(t => t.id === oldState.topic?.id);
+            if(changeTopicLocale.length > 0) {
+              return newState.withTopic(changeTopicLocale[0]);    
+            }
+          }
+          
           return newState.withTopic(topics[0]);
         }
       }

@@ -32,6 +32,7 @@ const loading_en: Api.Site = {
   id: "index",
   images: "", 
   locale: "en",
+  loader: true,
   topics: {
     "000_index": {
       id: "000_index",

@@ -23,23 +23,28 @@ const LayoutCalc: React.FC<LayoutCalcProps> = ({ config, children }) => {
   const layout = useDrawer();
   const drawerOpen = layout.session.drawer;
   const theme = useTheme();
+  const { drawerWidth: drawerWidthCallback, main: mainCallback, toolbarHeight, secondary: secondaryCallback } = config;
+
 
 
   // style calcs  
-  const drawerWidth = React.useMemo(() => config.drawerWidth(theme, useMediaQuery), [theme, useMediaQuery, config.drawerWidth]);
+  const drawerWidth = React.useMemo(() => drawerWidthCallback(theme, useMediaQuery), [theme, drawerWidthCallback]);
   const main: SxProps = React.useMemo(() => {
     if (drawerOpen) {
       return Object.assign({ 
         flexGrow: 1, 
-        height: `calc(100vh - ${config.toolbarHeight}px)`, 
+        height: `calc(100vh - ${toolbarHeight}px)`, 
         width: `calc(100vw - ${typeof drawerWidth === 'number' ? drawerWidth + 'px' : drawerWidth})` 
-      }, config.main({drawerOpen}));
+      }, mainCallback({drawerOpen}));
     }
-    return Object.assign({ flexGrow: 1, height: `calc(100vh - ${config.toolbarHeight}px)` }, config.main({drawerOpen}));
-  }, [drawerOpen, config.toolbarHeight, drawerWidth, config.main])
+    return Object.assign({ flexGrow: 1, height: `calc(100vh - ${toolbarHeight}px)` }, mainCallback({drawerOpen}));
+  }, [drawerOpen, toolbarHeight, drawerWidth, mainCallback])
 
-  const secondary: SxProps = React.useMemo(() => Object.assign({ width: drawerWidth, height: `calc(100vh - ${config.toolbarHeight}px)` }, config.secondary({drawerOpen})), [drawerWidth, config.secondary, drawerOpen]);
-  const contents = React.useMemo(() => children({ main, secondary, drawerWidth }), [main, secondary, drawerWidth]);
+  const secondary: SxProps = React.useMemo(
+    () => Object.assign({ width: drawerWidth, height: `calc(100vh - ${toolbarHeight}px)` }, secondaryCallback({drawerOpen})), 
+    [drawerWidth, secondaryCallback, drawerOpen, toolbarHeight]);
+  
+  const contents = React.useMemo(() => children({ main, secondary, drawerWidth }), [main, secondary, drawerWidth, children]);
 
   return (<Box sx={{ display: 'flex', height: "100vh" }}>
     <CssBaseline />

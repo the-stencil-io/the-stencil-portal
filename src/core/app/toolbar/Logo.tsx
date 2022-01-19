@@ -8,13 +8,13 @@ const Logo: React.FC<{}> = () => {
   const medium = useMediaQuery(theme.breakpoints.down("md"));
   
   if(small) {
-    return (<img src="./burger.png" height="70px" width="80px" />);
+    return (<img src="./burger.png" height="70px" width="80px" alt="logo"/>);
   } else if(medium) {
-    return (<img src="./burger.png" height="100" width="120" />)
+    return (<img src="./burger.png" height="100" width="120" alt="logo"/>)
   }
     
   return (
-    <img src="./burger.png" height="120px" width="150px" />
+    <img src="./burger.png" height="120px" width="150px" alt="logo"/>
   )
 }
 

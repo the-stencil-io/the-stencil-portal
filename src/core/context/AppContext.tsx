@@ -18,38 +18,41 @@ interface AppProviderProps {
 
 const AppInit: React.FC<{ children: API.App }> = ({ children }) => {
   const mode = useBreakpoint();
-  console.log(`portal: app container/layout Init: '${children.id}', mode: ${mode}`);
-  
   return React.useMemo(() => {
+    console.log(`portal: app container/layout Init: '${children.id}', mode: ${mode}`);
+
     const { config, components } = children;
-    const {primary, secondary, toolbar} = components;
-    
+    const { primary, secondary, toolbar } = components;
+
     if (mode === 'MOBILE') {
       return (<Container primary={primary} secondary={secondary} toolbar={toolbar} config={config.mobile} />);
     } else if (mode === "TABLET") {
       return (<Container primary={primary} secondary={secondary} toolbar={toolbar} config={config.tablet} />)
     }
-    
+
     return (<Container primary={primary} secondary={secondary} toolbar={toolbar} config={config.desktop} />);
   }, [children, mode]);
 }
 
 
 const AppProvider: React.FC<AppProviderProps> = (props: AppProviderProps) => {
-  const { id } = props.children;
-
-  console.log("portal: App Provider Init");
-  return (
-    <DrawerProvider drawerOpen={props.drawerOpen}>
-      <TabsProvider appId={id}>
-        <SecondaryProvider appId={id} secondary={props.secondaryOpen}>
-          <BreakpointProvider app={props.children}>
-            <AppInit children={props.children} />
-          </BreakpointProvider>
-        </SecondaryProvider>
-      </TabsProvider>
-    </DrawerProvider>
-  );
+  
+  const { drawerOpen, secondaryOpen, children } = props;
+  const { id } = children;
+  return React.useMemo(() => {
+    console.log("portal: App Provider Init");
+    return (
+      <DrawerProvider drawerOpen={drawerOpen}>
+        <TabsProvider appId={id}>
+          <SecondaryProvider appId={id} secondary={secondaryOpen}>
+            <BreakpointProvider app={children}>
+              <AppInit children={children} />
+            </BreakpointProvider>
+          </SecondaryProvider>
+        </TabsProvider>
+      </DrawerProvider>
+    )
+  }, [id, drawerOpen, secondaryOpen, children]);
 };
 
 export type { AppProviderProps };

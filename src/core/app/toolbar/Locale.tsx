@@ -58,7 +58,7 @@ const SelectDialog: React.FC<AppLocaleSelectionDialogProps> = ({ open, onClose }
 }
 
 
-const Locale: React.FC<{}> = ({ }) => {
+const Locale: React.FC<{}> = () => {
   const site = Portal.useSite();
   const [dialogOpen, setDialogOpen] = React.useState(false);
 
