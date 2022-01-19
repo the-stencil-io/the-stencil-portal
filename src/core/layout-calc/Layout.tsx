@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box } from '@mui/material';
+import { Box, SxProps } from '@mui/material';
 import { styled } from "@mui/material/styles";
 
 import StyledToolbar from './Toolbar';
@@ -8,8 +8,9 @@ import StyledAppBar from './Appbar';
 import StyledDrawer from '../layout-calc/Drawer';
 
 import { BreakpointConfig } from '../context/AppAPI';
+import { useTopic } from '../context/site/useContext';
 import { useDrawer } from '../context/drawer/DrawerContext';
-import { LayoutCalc } from '../layout-calc/LayoutCalc';
+import { LayoutCalc } from './LayoutCalc';
 
 
 interface ContainerProps {
@@ -24,10 +25,18 @@ const StyledMain = styled("main")(() => ({
   height: "100%"
 }));
 
+const MainWindowContent: React.FC<{sx: SxProps, children: React.ReactNode}> = ({sx, children}) => {
+  const topic = useTopic();
+  const id = topic ? topic.id : "";
+  
+  return React.useMemo(() => (<Box key={id} sx={sx}>{children}</Box>), [sx, children, id]); 
+}
+
 const Container: React.FC<ContainerProps> = (components) => {
   const layout = useDrawer();
   const drawerOpen = layout.session.drawer;
   const { main, secondary, toolbar, config } = components;
+//  const mainRef = React.useRef(); ref={mainRef}
 
   const mainWindow = React.useMemo(() => main, [main]);
   const secondaryWindow = React.useMemo(() => secondary, [secondary]);
@@ -49,7 +58,7 @@ const Container: React.FC<ContainerProps> = (components) => {
 
       <StyledMain>
         <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} />
-        <Box sx={styles.main}>{mainWindow}</Box>
+        <MainWindowContent sx={styles.main}>{mainWindow}</MainWindowContent>
       </StyledMain>
     </>)
   } />);

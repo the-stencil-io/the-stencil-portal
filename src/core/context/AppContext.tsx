@@ -6,9 +6,7 @@ import { BreakpointProvider, useBreakpoint } from './breakpoint/BreakpointContex
 import { DrawerProvider } from './drawer/DrawerContext';
 import { TabsProvider } from './tabs/TabsContext';
 import { SecondaryProvider } from './secondary/SecondaryContext';
-import { Container } from '../layout-desktop';
-import { Mobile } from '../layout-mobile';
-import { Tablet } from '../layout-tablet';
+import { Container } from '../layout-calc/Layout';
 
 
 interface AppProviderProps {
@@ -31,9 +29,9 @@ const CreateContainer: React.FC<{ app: API.App }> = ({ app }) => {
   console.log(`portal: app container/layout Init: '${app.id}', mode: ${mode}`);
 
   if (mode === 'MOBILE') {
-    return (<Mobile main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.mobile} />);
+    return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.mobile} />);
   } else if (mode === "TABLET") {
-    return (<Tablet main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.tablet} />)
+    return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.tablet} />)
   }
   return (<Container main={<Main />} secondary={<Secondary />} toolbar={<Toolbar />} config={app.config.desktop} />);
 }
