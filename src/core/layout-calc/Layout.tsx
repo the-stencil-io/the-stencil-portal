@@ -32,9 +32,8 @@ const ContainerComponents: React.FC<{ components: ContainerProps, calc: LayoutCa
     secondary: Secondary,
     toolbar: Toolbar 
   } = components;
-  //  const mainRef = React.useRef(); ref={mainRef}
 
-  const primaryWindow = React.useMemo(() => <Primary sx={calc.main}/>, [components.primary]);
+  const primaryWindow = React.useMemo(() => <Primary sx={calc.main}/>, [components.primary, calc.main]);
   const secondaryWindow = React.useMemo(() => <Secondary />, [components.secondary]);
   const toolbarWindow = React.useMemo(() => <Toolbar />, [components.toolbar]);
 
