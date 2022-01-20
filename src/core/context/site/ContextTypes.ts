@@ -39,7 +39,7 @@ const initContext = (
     getBlob: (topic) => state.getBlob(topic),
     actions: actions,
     setLink: (newLink?: Api.TopicLink) => actions.setLink(newLink),
-    setTopic: (newTopic: Api.Topic) => actions.setTopic(newTopic),
+    setTopic: (newTopic: Api.Topic, props?: any) => actions.setTopic(newTopic, props),
     setSite: (site?: Api.Site, newLocale?: Api.LocaleCode) => actions.setSite(site, newLocale),
     setLocale: (newLocale: string) => {
       if (state.locale === newLocale) {
