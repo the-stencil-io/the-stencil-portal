@@ -27,6 +27,7 @@ const StyledMain = styled("main")(() => ({
 const ContainerComponents: React.FC<{ components: ContainerProps, calc: LayoutCalcCallbackProps }> = ({ components, calc }) => {
   const layout = useDrawer();
   const drawerOpen = layout.session.drawer;
+  
   const { 
     primary: Primary, 
     secondary: Secondary,

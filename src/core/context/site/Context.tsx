@@ -41,7 +41,7 @@ const SiteProvider: React.FC<SiteProviderProps> = (props) => {
       })
 
     }
-  }, [service, state.locale, state.loaded, dispatch, props.defaultTopic]);
+  }, [service, state.locale, state.loaded, dispatch, props.defaultTopic, actions]);
 
   return (<SiteContext.Provider value={contextValue}>{state.loaded && props.children}</SiteContext.Provider>);
 }

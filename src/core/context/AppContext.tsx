@@ -61,7 +61,7 @@ const AppLayout: React.FC<AppProviderProps> = (props) => {
 const AppProvider: React.FC<AppProviderProps> = (props: AppProviderProps) => {
 
   const { secondaryOpen, children } = props;
-  const { id } = children;
+
   return React.useMemo(() => {
     console.log("portal: App Provider Init");
     return (
@@ -69,7 +69,7 @@ const AppProvider: React.FC<AppProviderProps> = (props: AppProviderProps) => {
         <AppLayout children={children} secondaryOpen={secondaryOpen}/>
       </BreakpointProvider>
     )
-  }, [id, secondaryOpen, children]);
+  }, [secondaryOpen, children]);
 };
 
 export type { AppProviderProps };

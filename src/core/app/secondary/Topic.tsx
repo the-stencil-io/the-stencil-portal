@@ -62,7 +62,7 @@ const Topic: React.FC<TopicProps> = ({ value }) => {
     );
 
 
-  }, [actions, site, open, setOpen, active]);
+  }, [actions, site, open, setOpen, active, value]);
 
 
 

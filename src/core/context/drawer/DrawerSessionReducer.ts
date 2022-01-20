@@ -28,6 +28,10 @@ const DrawerReducer = (state: API.DrawerSession, action: ReducerAction): API.Dra
         console.error("Action data error", action);
         return state;
       }
+      if(action.setDrawer === state.drawer) {
+        return state;
+      }
+      
       return state.withDrawer(action.setDrawer);
     }
   }
