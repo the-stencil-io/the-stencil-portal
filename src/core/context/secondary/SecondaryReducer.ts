@@ -24,12 +24,7 @@ class SecondaryReducerDispatch implements API.SecondaryActions {
 const SecondaryReducer = (state: API.SecondarySession, action: ReducerAction): API.SecondarySession => {
   switch (action.type) {
     case ReducerActionType.setSecondary: {
-      if (!action.setSecondary) {
-        console.error("Action data error", action);
-        return state;
-      }
-      const result = state.withSecondary(action.setSecondary);
-      return result;
+      return state.withSecondary(action.setSecondary);
     }
   }
 }
