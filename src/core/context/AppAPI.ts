@@ -24,7 +24,8 @@ interface BreakpointConfig {
   drawerWidth: (theme: Theme, mediaQuery: MediaQuery) => string | number;
   toolbarHeight: number;
   main: StyleQuery;
-  secondary: StyleQuery;  
+  secondary: StyleQuery;
+  drawerOpen: boolean;  
 }
 
 interface ToolbarProps {

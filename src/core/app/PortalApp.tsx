@@ -34,6 +34,7 @@ const app: Portal.App = {
       toolbarHeight: 100,
       main: ({drawerOpen}) => drawerOpen ? {display: "none"} : scroll,
       secondary: ({drawerOpen}) => scroll,
+      drawerOpen: false
     },
     tablet: {
       breakpoint: (theme, query) => query(theme.breakpoints.down("md")),
@@ -41,6 +42,7 @@ const app: Portal.App = {
       toolbarHeight: 125,
       main: ({drawerOpen}) => scroll,
       secondary: ({drawerOpen}) => scroll,
+      drawerOpen: false
     },
     desktop: {
       breakpoint: (theme, query) => query(theme.breakpoints.up("lg")),
@@ -48,6 +50,7 @@ const app: Portal.App = {
       toolbarHeight: 150,
       main: ({drawerOpen}) => scroll,
       secondary: ({drawerOpen}) => scroll,
+      drawerOpen: true
     }
   },
 }
