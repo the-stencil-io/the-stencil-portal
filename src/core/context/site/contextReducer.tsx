@@ -14,7 +14,7 @@ interface SiteStateData {
 
 interface SiteState extends SiteStateData {
   withLocale(locale: string): SiteState;
-  withSite(site: Api.Site): SiteState;
+  withSite(site: Api.Site, defaultTopicId?: string): SiteState;
   withTopic(topic?: Api.Topic): SiteState;
   withLink(link?: Api.TopicLink): SiteState;
   getBlob(topic?: Api.Topic): Api.Blob | undefined;
@@ -61,7 +61,13 @@ class ImmutableSiteState implements SiteState {
   withLocale(locale: string): SiteState {
     return new ImmutableSiteState(locale, this.init({ parent: this }));
   }
-  withSite(site: Api.Site): SiteState {
+  withSite(site: Api.Site, defaultTopicId?: string): SiteState {
+    if(defaultTopicId) {
+      const found = Object.values(site.topics).filter(t => t.id === defaultTopicId);
+      if(found.length > 0) {
+        return new ImmutableSiteState(this._locale, this.init({ parent: this, site, topic: found[0] })); 
+      }
+    }
     return new ImmutableSiteState(this._locale, this.init({ parent: this, site }));
   }
   withTopic(topic?: Api.Topic): SiteState {
@@ -111,6 +117,7 @@ interface ContextAction {
 
   site?: Api.Site,
   locale?: string,
+  defaultTopicId?: string;
   topic?: Api.Topic,
   link?: Api.TopicLink,
 }
@@ -126,8 +133,8 @@ class SiteReducerDispatch implements SiteActions {
   setLocale(locale: string) {
     this._sessionDispatch({ type: "setLocale", locale })
   }
-  setSite(site?: Api.Site, locale?: Api.LocaleCode) {
-    this._sessionDispatch({ type: "setSite", site, locale })
+  setSite(site?: Api.Site, locale?: Api.LocaleCode, defaultTopicId?: string) {
+    this._sessionDispatch({ type: "setSite", site, locale, defaultTopicId })
   }    
   setTopic(topic: Api.Topic) {
     this._sessionDispatch({ type: "setTopic", topic })
@@ -150,14 +157,15 @@ const contextReducer = (oldState: SiteState, action: ContextAction): SiteState =
         return oldState;
       }
       
-      const newState = oldState.withSite(site).withLocale(action.locale ? action.locale : oldState.locale)
+      const newState = oldState.withSite(site, action.defaultTopicId).withLocale(action.locale ? action.locale : oldState.locale)
+      
       if (!newState.topic) {
         const records = newState.site?.topics;
         const topics = Object.values(records ? records : {})
           .filter(t => !t.parent)
           .sort((t1, t2) => t1.id.localeCompare(t2.id));
-        if (topics.length) {
           
+        if (topics.length) {
           if(oldState.topic?.id) {
             const changeTopicLocale = topics.filter(t => t.id === oldState.topic?.id);
             if(changeTopicLocale.length > 0) {
@@ -185,6 +193,10 @@ const contextReducer = (oldState: SiteState, action: ContextAction): SiteState =
     case "setTopic": {
       const apiTopic = action.topic;
       const newTopic = oldState.overrides.setTopic ? oldState.overrides.setTopic(oldState, apiTopic) : apiTopic;
+      
+      if(oldState.topic && newTopic && newTopic.id === oldState.topic.id) {
+        return oldState;
+      }
       return oldState.withTopic(newTopic);
     }
     case "setLink": {

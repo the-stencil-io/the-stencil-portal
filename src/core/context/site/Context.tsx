@@ -6,6 +6,7 @@ import { SiteContextType, initContext, SiteActionOverrides } from './ContextType
 interface SiteProviderProps {
   service: Service;
   defaultLocale: string;
+  defaultTopic?: string
   children: React.ReactNode; 
   overrides?: SiteActionOverrides;
 }
@@ -35,12 +36,12 @@ const SiteProvider: React.FC<SiteProviderProps> = (props) => {
 
       service.getSite(state.locale).then(site => {
         if (site) {
-          actions.setSite(site, state.locale);
+          actions.setSite(site, state.locale, props.defaultTopic);
         }
       })
 
     }
-  }, [service, state.locale, state.loaded, dispatch]);
+  }, [service, state.locale, state.loaded, dispatch, props.defaultTopic]);
 
   return (<SiteContext.Provider value={contextValue}>{state.loaded && props.children}</SiteContext.Provider>);
 }
