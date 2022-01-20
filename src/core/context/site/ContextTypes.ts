@@ -15,12 +15,12 @@ interface SiteActions {
   setSite: (site?: Api.Site, newLocale?: Api.LocaleCode) => void;
   setLink: (newLink?: Api.TopicLink) => void;
   setLocale: (newLocale: string) => void;
-  setTopic: (newTopic: Api.Topic) => void;
+  setTopic: (newTopic: Api.Topic, props?: any) => void;
 }
 
 
 interface SiteActionOverrides {
-  setTopic?: (state: SiteState, newTopic?: Api.Topic) => Api.Topic | undefined;
+  setTopic?: (state: SiteState, newTopic?: Api.Topic, props?: any) => Api.Topic | undefined;
   setLink?: (state: SiteState, newLink?: Api.TopicLink) => Api.TopicLink | undefined;
   setSite?: (state: SiteState, newSite?: Api.Site) => Api.Site | undefined;
 }

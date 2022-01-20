@@ -72,7 +72,7 @@ const PortalApp: React.FC<{}> = () => {
   const service = React.useMemo(() => Portal.createService({ defaultLocale, dev: true, content: { url: "http://localhost:8080/q/ide-services" } }), [defaultLocale]);
 
   return (
-    <Portal.SiteProvider service={service} defaultLocale={defaultLocale}>
+    <Portal.SiteProvider service={service} defaultLocale={defaultLocale} overrides={{}}>
       <PortalIntl />
     </Portal.SiteProvider>);
 }

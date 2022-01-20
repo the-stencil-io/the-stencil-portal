@@ -119,6 +119,7 @@ interface ContextAction {
   locale?: string,
   defaultTopicId?: string;
   topic?: Api.Topic,
+  topicProps?: any,
   link?: Api.TopicLink,
 }
 
@@ -136,8 +137,8 @@ class SiteReducerDispatch implements SiteActions {
   setSite(site?: Api.Site, locale?: Api.LocaleCode, defaultTopicId?: string) {
     this._sessionDispatch({ type: "setSite", site, locale, defaultTopicId })
   }    
-  setTopic(topic: Api.Topic) {
-    this._sessionDispatch({ type: "setTopic", topic })
+  setTopic(topic: Api.Topic, topicProps?: any) {
+    this._sessionDispatch({ type: "setTopic", topic, topicProps })
   }
   setLink(link?: Api.TopicLink) {
     this._sessionDispatch({ type: "setLink", link })
@@ -192,7 +193,7 @@ const contextReducer = (oldState: SiteState, action: ContextAction): SiteState =
     }
     case "setTopic": {
       const apiTopic = action.topic;
-      const newTopic = oldState.overrides.setTopic ? oldState.overrides.setTopic(oldState, apiTopic) : apiTopic;
+      const newTopic = oldState.overrides.setTopic ? oldState.overrides.setTopic(oldState, apiTopic, action.topicProps) : apiTopic;
       
       if(oldState.topic && newTopic && newTopic.id === oldState.topic.id) {
         return oldState;
