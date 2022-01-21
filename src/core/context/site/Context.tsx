@@ -28,6 +28,11 @@ const SiteProvider: React.FC<SiteProviderProps> = (props) => {
   const actions = React.useMemo(() => new SiteReducerDispatch(dispatch), [dispatch]);
   const contextValue = React.useMemo(() => initContext(state, service, actions), [state, service, actions]);
 
+  React.useEffect(() => {
+    console.log("portal: reinit overriddes");
+    dispatch({ type: "setOverrides",  overrides });
+  }, [overrides]);
+
 
   // load site
   React.useEffect(() => {

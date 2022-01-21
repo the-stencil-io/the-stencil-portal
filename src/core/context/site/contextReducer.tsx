@@ -17,6 +17,7 @@ interface SiteState extends SiteStateData {
   withSite(site: Api.Site, defaultTopicId?: string): SiteState;
   withTopic(topic?: Api.Topic): SiteState;
   withLink(link?: Api.TopicLink): SiteState;
+  withOverrides(overrides: SiteActionOverrides): SiteState;
   getBlob(topic?: Api.Topic): Api.Blob | undefined;
 }
 
@@ -57,6 +58,9 @@ class ImmutableSiteState implements SiteState {
       return undefined
     }
     return this._site.blobs[targetTopic.blob];
+  }
+  withOverrides(overrides: SiteActionOverrides): SiteState {
+    return new ImmutableSiteState(this._locale, this.init({ parent: this, overrides }));
   }
   withLocale(locale: string): SiteState {
     return new ImmutableSiteState(locale, this.init({ parent: this }));
@@ -113,8 +117,9 @@ class ImmutableSiteState implements SiteState {
 }
 
 interface ContextAction {
-  type: "setSite" | "setLocale" | "setTopic" | "setLink",
+  type: "setSite" | "setLocale" | "setTopic" | "setLink" | "setOverrides",
 
+  overrides?: SiteActionOverrides;
   site?: Api.Site,
   locale?: string,
   defaultTopicId?: string;
@@ -180,6 +185,13 @@ const contextReducer = (oldState: SiteState, action: ContextAction): SiteState =
 
       return newState;
     }
+    case "setOverrides": {
+      if (!action.overrides) {
+        console.error("new overrides are undefined");
+        return oldState;
+      }
+      return oldState.withOverrides(action.overrides);
+    }    
     case "setLocale": {
       if (!action.locale) {
         console.error("new locale is undefined");
