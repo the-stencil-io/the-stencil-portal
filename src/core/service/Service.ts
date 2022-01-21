@@ -1,5 +1,7 @@
 
 type LocaleCode = string;
+type TopicId = string;
+type TopicLinkId = string;
 type TopicLinkType = "phone" | "dialob" | "internal" | "external" | "workflow" | string;
 interface Site {
   id: string;
@@ -18,7 +20,7 @@ interface Blob {
 }
 
 interface Topic {
-  id: string;
+  id: TopicId;
   name: string;
   links: string[];
   headings: TopicHeading[];
@@ -27,7 +29,7 @@ interface Topic {
 }
 
 interface TopicLink {
-  id: string;
+  id: TopicLinkId;
   type: TopicLinkType;
   name: string;
   value: string;
@@ -61,6 +63,6 @@ interface ServiceConfig {
   dev?: boolean;
 }
 
-export type { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType, LocaleCode, FallbackSites };
+export type { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType, LocaleCode, FallbackSites, TopicId, TopicLinkId };
 
 

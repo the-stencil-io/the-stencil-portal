@@ -10,8 +10,7 @@ interface AppContentProps {
 }
 
 const Content: React.FC<AppContentProps> = () => {
-  const site = Portal.useSite();
-  const blob = site.getBlob();
+  const blob = Portal.useBlob();
 
   if (blob) {
     return (<Markdown children={blob.value} />);

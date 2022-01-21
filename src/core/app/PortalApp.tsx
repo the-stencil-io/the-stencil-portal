@@ -32,24 +32,24 @@ const app: Portal.App = {
       breakpoint: (theme, query) => query(theme.breakpoints.down("sm")),
       drawerWidth: (theme, query) => "100%",
       toolbarHeight: 100,
-      main: ({drawerOpen}) => drawerOpen ? {display: "none"} : scroll,
-      secondary: ({drawerOpen}) => scroll,
+      main: ({ drawerOpen }) => drawerOpen ? { display: "none" } : scroll,
+      secondary: ({ drawerOpen }) => scroll,
       drawerOpen: false
     },
     tablet: {
       breakpoint: (theme, query) => query(theme.breakpoints.down("md")),
       drawerWidth: (theme, query) => 400,
       toolbarHeight: 125,
-      main: ({drawerOpen}) => scroll,
-      secondary: ({drawerOpen}) => scroll,
+      main: ({ drawerOpen }) => scroll,
+      secondary: ({ drawerOpen }) => scroll,
       drawerOpen: false
     },
     desktop: {
       breakpoint: (theme, query) => query(theme.breakpoints.up("lg")),
       drawerWidth: (theme, query) => 500,
       toolbarHeight: 150,
-      main: ({drawerOpen}) => scroll,
-      secondary: ({drawerOpen}) => scroll,
+      main: ({ drawerOpen }) => scroll,
+      secondary: ({ drawerOpen }) => scroll,
       drawerOpen: true
     }
   },
@@ -76,7 +76,9 @@ const PortalApp: React.FC<{}> = () => {
 
   return (
     <Portal.SiteProvider service={service} defaultLocale={defaultLocale} overrides={{}}>
-      <PortalIntl />
+      <Portal.TopicsProvider>
+        <PortalIntl />
+      </Portal.TopicsProvider>
     </Portal.SiteProvider>);
 }
 

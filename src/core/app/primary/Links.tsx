@@ -12,7 +12,8 @@ interface LinksProps {
 }
 
 const Links: React.FC<LinksProps> = () => {
-  const { topic, site } = Portal.useSite();  
+  const { site } = Portal.useSite();  
+  const topic = Portal.useTopic()
 
   if (!topic || !site) {
     return null;

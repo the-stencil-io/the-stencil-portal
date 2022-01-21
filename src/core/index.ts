@@ -4,7 +4,7 @@ import { useTabs as useTabsAlias } from './context/tabs/TabsContext';
 import { useSecondary as useSecondaryAlias } from './context/secondary/SecondaryContext';
 import { siteTheme } from './theme/siteTheme';
 import { PortalApp } from './app/PortalApp';
-import { ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType, LocaleCode, FallbackSites, createService as createServiceAs } from './service';
+import { ServiceConfig, Service, TopicHeading, TopicId, TopicLinkId, TopicLink, Topic, Blob, Site, TopicLinkType, LocaleCode, FallbackSites, createService as createServiceAs } from './service';
 import intlMessages from './intl';
 
 import {
@@ -52,9 +52,23 @@ import {
   SiteState
 } from './context/site/contextReducer';
 import {
-  useContext as useSiteContext, useBlob as useBlobContext
+  useContext as useSiteContext
 } from './context/site/useContext';
 
+
+
+import {
+  TopicsProvider as TopicsProviderAs, TopicsProviderProps
+} from './context/topics/Context';
+import {
+  TopicsContextType, TopicsActionOverrides
+} from './context/topics/ContextTypes';
+import {
+  TopicsState
+} from './context/topics/contextReducer';
+import {
+  useContext as useTopicsContext, useBlob as useBlobContext, useTopic as useTopicContext
+} from './context/topics/useContext';
 
 
 // import { StyledDialog, StyledDialogProps } from './styles/StyledDialog';
@@ -62,6 +76,7 @@ import {
 
 declare namespace Portal { //ONLY can export interfaces and types with 'declare namespace'. DOES NOT COMPILE with constants
   export { 
+    TopicId, TopicLinkId,
     AppProviderProps, App, AppId, MediaQuery, StyleQuery, BreakpointConfig,
     DrawerContextType, DrawerSession, DrawerActions,
     TabsContextType, TabsSession, TabSession, TabsHistory, TabsActions,
@@ -70,7 +85,8 @@ declare namespace Portal { //ONLY can export interfaces and types with 'declare 
     BreakpointMode, BreakpointContextType,
     LocaleCode, FallbackSites, 
     ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType,
-    ToolbarProps, PrimaryProps, SecondaryProps
+    ToolbarProps, PrimaryProps, SecondaryProps,
+    TopicsProviderProps, TopicsActionOverrides, TopicsContextType, TopicsState
   };
   export {  }
 }
@@ -81,14 +97,19 @@ namespace Portal { //export the constants
   export const TabsProvider = TabsProviderAs;
   export const SecondaryProvider = SecondaryProviderAs;
   export const BreakpointProvider = BreakpointProviderAs;
+  export const TopicsProvider = TopicsProviderAs;
   export const Provider = AppProvider;
+  
   
   export const useBreakpoint = useBreakpointAs; 
   export const useDrawer = useDrawerAlias;
   export const useTabs = useTabsAlias;
   export const useSecondary = useSecondaryAlias;
+  export const useTopics = useTopicsContext;
   export const useSite = useSiteContext;
   export const useBlob = useBlobContext;
+  export const useTopic = useTopicContext;
+  
   
   export const DefaultApp = PortalApp;
   export const defaultTheme = siteTheme;

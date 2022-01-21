@@ -18,19 +18,17 @@ interface MarkdownViewProps {
 
 
 const Markdown: React.FC<MarkdownViewProps> = ({ children }) => {
-  const site = Portal.useSite();
-  const topic = site.topic;
+  const topic = Portal.useTopic();
+  const blob = Portal.useBlob();
   const theme = useTheme();
   const small = useMediaQuery(theme.breakpoints.down("sm"));
 
-
-  const blob = site.getBlob();
   if (!topic || !blob) {
     return <div>not selected ...</div>
   }
 
   const onAnchorClick: (anchor: string) => void = () => console.log("link clicked");
-  const createAnchorRef = (name: string): React.RefObject<HTMLSpanElement> => {
+  const createAnchorRef = (_name: string): React.RefObject<HTMLSpanElement> => {
     const value: React.RefObject<HTMLSpanElement> = React.createRef();
     return value;
   };

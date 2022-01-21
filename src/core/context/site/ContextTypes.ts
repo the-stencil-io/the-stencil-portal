@@ -5,23 +5,17 @@ interface SiteContextType extends SiteActions {
   service: Api.Service;
   site?: Api.Site;
   locale: string;
-  topic?: Api.Topic;
-  link?: Api.TopicLink;
-  getBlob: (topic?: Api.Topic) => Api.Blob | undefined;
+  getBlob: (topic: Api.Topic) => Api.Blob | undefined;
   actions: SiteActions;
 }
 
 interface SiteActions {
   setSite: (site?: Api.Site, newLocale?: Api.LocaleCode) => void;
-  setLink: (newLink?: Api.TopicLink) => void;
   setLocale: (newLocale: string) => void;
-  setTopic: (newTopic: Api.Topic, props?: any) => void;
 }
 
 
 interface SiteActionOverrides {
-  setTopic?: (newTopic?: Api.Topic, props?: any) => Api.Topic | undefined;
-  setLink?: (newLink?: Api.TopicLink) => Api.TopicLink | undefined;
   setSite?: (newSite?: Api.Site) => Api.Site | undefined;
 }
 
@@ -35,11 +29,8 @@ const initContext = (
     service: service,
     locale: state.locale,
     site: state.site,
-    topic: state.topic,
     getBlob: (topic) => state.getBlob(topic),
     actions: actions,
-    setLink: (newLink?: Api.TopicLink) => actions.setLink(newLink),
-    setTopic: (newTopic: Api.Topic, props?: any) => actions.setTopic(newTopic, props),
     setSite: (site?: Api.Site, newLocale?: Api.LocaleCode) => actions.setSite(site, newLocale),
     setLocale: (newLocale: string) => {
       if (state.locale === newLocale) {
