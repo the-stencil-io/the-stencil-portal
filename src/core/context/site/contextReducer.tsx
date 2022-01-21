@@ -7,17 +7,16 @@ interface SiteStateData {
   locale: string;
   site?: Api.Site;
   topic?: Api.Topic;
+  topicProps?: any;
   link?: Api.TopicLink;
   parent?: SiteState;
-  overrides: SiteActionOverrides;
 }
 
 interface SiteState extends SiteStateData {
   withLocale(locale: string): SiteState;
   withSite(site: Api.Site, defaultTopicId?: string): SiteState;
-  withTopic(topic?: Api.Topic): SiteState;
+  withTopic(topic?: Api.Topic, topicProps?: any): SiteState;
   withLink(link?: Api.TopicLink): SiteState;
-  withOverrides(overrides: SiteActionOverrides): SiteState;
   getBlob(topic?: Api.Topic): Api.Blob | undefined;
 }
 
@@ -26,24 +25,24 @@ class ImmutableSiteState implements SiteState {
   private _loaded: boolean;
   private _site?: Api.Site;
   private _topic?: Api.Topic;
+  private _topicProps?: any;
   private _link?: Api.TopicLink;
   private _parent?: SiteState;
-  private _overrides: SiteActionOverrides;
 
   constructor(locale: string, init: {
     site?: Api.Site;
     topic?: Api.Topic;
     link?: Api.TopicLink;
     parent?: SiteState;
-    overrides: SiteActionOverrides
+    topicProps?: any
   }) {
     this._locale = locale;
     this._loaded = init.site != null && init.site.loader !== true;
     this._site = init.site;
     this._topic = init.topic;
+    this._topicProps = init.topicProps;
     this._link = init.link;
     this._parent = init.parent;
-    this._overrides = init.overrides;
   }
   getBlob(topic?: Api.Topic) {
     if (!this._site) {
@@ -59,9 +58,6 @@ class ImmutableSiteState implements SiteState {
     }
     return this._site.blobs[targetTopic.blob];
   }
-  withOverrides(overrides: SiteActionOverrides): SiteState {
-    return new ImmutableSiteState(this._locale, this.init({ parent: this, overrides }));
-  }
   withLocale(locale: string): SiteState {
     return new ImmutableSiteState(locale, this.init({ parent: this }));
   }
@@ -74,8 +70,8 @@ class ImmutableSiteState implements SiteState {
     }
     return new ImmutableSiteState(this._locale, this.init({ parent: this, site }));
   }
-  withTopic(topic?: Api.Topic): SiteState {
-    return new ImmutableSiteState(this._locale, this.init({ parent: this, topic }));
+  withTopic(topic?: Api.Topic, topicProps?: any): SiteState {
+    return new ImmutableSiteState(this._locale, this.init({ parent: this, topic, topicProps }));
   }
   withLink(link?: Api.TopicLink): SiteState {
     return new ImmutableSiteState(this._locale, this.init({ parent: this, link }));
@@ -86,15 +82,12 @@ class ImmutableSiteState implements SiteState {
       loaded: this._loaded,
       site: this._site,
       topic: this._topic,
+      topicProps: this._topicProps,
       link: this._link,
       parent: this,
-      locale: this._locale,
-      overrides: this._overrides
+      locale: this._locale
     };
     return Object.assign(newState, arg);
-  }
-  get overrides() {
-    return this._overrides;
   }
   get locale() {
     return this._locale;
@@ -104,6 +97,9 @@ class ImmutableSiteState implements SiteState {
   }
   get topic() {
     return this._topic;
+  }
+  get topicProps() {
+    return this._topicProps;
   }
   get link() {
     return this._link;
@@ -117,9 +113,7 @@ class ImmutableSiteState implements SiteState {
 }
 
 interface ContextAction {
-  type: "setSite" | "setLocale" | "setTopic" | "setLink" | "setOverrides",
-
-  overrides?: SiteActionOverrides;
+  type: "setSite" | "setLocale" | "setTopic" | "setLink",
   site?: Api.Site,
   locale?: string,
   defaultTopicId?: string;
@@ -132,21 +126,26 @@ interface ContextAction {
 class SiteReducerDispatch implements SiteActions {
 
   private _sessionDispatch: React.Dispatch<ContextAction>;
-  constructor(session: React.Dispatch<ContextAction>) {
+  private _overrides: SiteActionOverrides;
+  constructor(session: React.Dispatch<ContextAction>, overrides: SiteActionOverrides) {
     console.log("portal: init site dispatch");
     this._sessionDispatch = session;
+    this._overrides = overrides;
   }
   setLocale(locale: string) {
     this._sessionDispatch({ type: "setLocale", locale })
   }
   setSite(site?: Api.Site, locale?: Api.LocaleCode, defaultTopicId?: string) {
-    this._sessionDispatch({ type: "setSite", site, locale, defaultTopicId })
+    const newSite = this._overrides.setSite ? this._overrides.setSite(site) : site;
+    this._sessionDispatch({ type: "setSite", site: newSite, locale, defaultTopicId })
   }    
   setTopic(topic: Api.Topic, topicProps?: any) {
-    this._sessionDispatch({ type: "setTopic", topic, topicProps })
+    const newTopic = this._overrides.setTopic ? this._overrides.setTopic(topic, topicProps) : topic;
+    this._sessionDispatch({ type: "setTopic", topic: newTopic, topicProps })
   }
   setLink(link?: Api.TopicLink) {
-    this._sessionDispatch({ type: "setLink", link })
+    const newLink = this._overrides.setLink ? this._overrides.setLink(link) : link
+    this._sessionDispatch({ type: "setLink", link: newLink })
   }
 }
 
@@ -157,12 +156,7 @@ const contextReducer = (oldState: SiteState, action: ContextAction): SiteState =
         console.error("new site is undefined");
         return oldState;
       }
-      const site = oldState.overrides.setSite ? oldState.overrides.setSite(oldState, action.site) : action.site;
-      if(!site) {
-        console.error("new site is undefined");
-        return oldState;
-      }
-      
+      const site = action.site;      
       const newState = oldState.withSite(site, action.defaultTopicId).withLocale(action.locale ? action.locale : oldState.locale)
       
       if (!newState.topic) {
@@ -185,13 +179,6 @@ const contextReducer = (oldState: SiteState, action: ContextAction): SiteState =
 
       return newState;
     }
-    case "setOverrides": {
-      if (!action.overrides) {
-        console.error("new overrides are undefined");
-        return oldState;
-      }
-      return oldState.withOverrides(action.overrides);
-    }    
     case "setLocale": {
       if (!action.locale) {
         console.error("new locale is undefined");
@@ -204,17 +191,14 @@ const contextReducer = (oldState: SiteState, action: ContextAction): SiteState =
       return oldState.withLocale(action.locale);
     }
     case "setTopic": {
-      const apiTopic = action.topic;
-      const newTopic = oldState.overrides.setTopic ? oldState.overrides.setTopic(oldState, apiTopic, action.topicProps) : apiTopic;
-      
+      const newTopic = action.topic;
       if(oldState.topic && newTopic && newTopic.id === oldState.topic.id) {
         return oldState;
       }
       return oldState.withTopic(newTopic);
     }
     case "setLink": {
-      const apiLink = action.link;
-      const newLink = oldState.overrides.setLink ? oldState.overrides.setLink(oldState, apiLink) : apiLink
+      const newLink = action.link;
       if (newLink && !(newLink.type === "dialob" || newLink.type === "workflow")) {
         return oldState;
       }

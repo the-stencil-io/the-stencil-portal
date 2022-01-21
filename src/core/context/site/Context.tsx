@@ -11,21 +11,20 @@ interface SiteProviderProps {
   overrides?: SiteActionOverrides;
 }
 
-const initState = (defaultLocale: string, service: Service, overrides?: SiteActionOverrides): SiteState => {
+const initState = (defaultLocale: string, service: Service): SiteState => {
   console.log("portal: site state init");
   return new ImmutableSiteState(
     defaultLocale, { 
-      site: service.getSiteLoading(defaultLocale), 
-      overrides: overrides ? overrides : {}
+      site: service.getSiteLoading(defaultLocale)
     });
 };
 
 const SiteProvider: React.FC<SiteProviderProps> = (props) => {
   const { overrides, defaultLocale } = props;
   const service: Service = React.useMemo(() => props.service, [props.service])
-  const init = React.useMemo(() => initState(defaultLocale, service, overrides), [defaultLocale, service, overrides])
+  const init = React.useMemo(() => initState(defaultLocale, service), [defaultLocale, service])
   const [state, dispatch] = React.useReducer(contextReducer, init);
-  const actions = React.useMemo(() => new SiteReducerDispatch(dispatch), [dispatch]);
+  const actions = React.useMemo(() => new SiteReducerDispatch(dispatch, overrides ? overrides : {}), [dispatch, overrides]);
   const contextValue = React.useMemo(() => initContext(state, service, actions), [state, service, actions]);
 
   // load site
