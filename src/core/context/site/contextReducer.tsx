@@ -46,13 +46,7 @@ class ImmutableSiteState implements SiteState {
   withLocale(locale: string): SiteState {
     return new ImmutableSiteState(locale, this.init({ parent: this }));
   }
-  withSite(site: Api.Site, defaultTopicId?: string): SiteState {
-    if(defaultTopicId) {
-      const found = Object.values(site.topics).filter(t => t.id === defaultTopicId);
-      if(found.length > 0) {
-        return new ImmutableSiteState(this._locale, this.init({ parent: this, site, topic: found[0] })); 
-      }
-    }
+  withSite(site: Api.Site): SiteState {
     return new ImmutableSiteState(this._locale, this.init({ parent: this, site }));
   }
   init(arg: {}): SiteStateData {
