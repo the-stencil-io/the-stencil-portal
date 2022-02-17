@@ -18,12 +18,11 @@ interface MarkdownViewProps {
 
 
 const Markdown: React.FC<MarkdownViewProps> = ({ children }) => {
-  const topic = Portal.useTopic();
-  const blob = Portal.useBlob();
+  const view = Portal.useTopic();
   const theme = useTheme();
   const small = useMediaQuery(theme.breakpoints.down("sm"));
 
-  if (!topic || !blob) {
+  if (!view || !view.blob) {
     return <div>not selected ...</div>
   }
 
@@ -86,7 +85,7 @@ const Markdown: React.FC<MarkdownViewProps> = ({ children }) => {
           link: (props) => Renderers.Link(onAnchorClick, props),
           text: (props) => Renderers.Text(createAnchorRef, props)
         }} />
-      { topic?.links.length ? (<><Divider /><Links /></>) : null}
+      { view.links.length ? (<><Divider /><Links /></>) : null}
     </>);
 }
 

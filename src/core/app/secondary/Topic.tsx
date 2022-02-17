@@ -20,11 +20,11 @@ interface TopicProps {
 const Topic: React.FC<TopicProps> = ({ value }) => {
 
   const { site } = Portal.useSite();
-  const topic = Portal.useTopic();
+  const view = Portal.useTopic();
   const { actions } = Portal.useTopics();
   
   const [open, setOpen] = React.useState(false);
-  const active = value.id === topic?.id;
+  const active = value.id === view?.topic.id;
 
   return React.useMemo(() => {
     console.log("rendering topic");

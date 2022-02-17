@@ -11,15 +11,14 @@ import Portal from '../../';
 interface LinksProps {
 }
 
-const Links: React.FC<LinksProps> = () => {
-  const { site } = Portal.useSite();  
-  const topic = Portal.useTopic()
+const Links: React.FC<LinksProps> = () => {  
+  const view = Portal.useTopic()
 
-  if (!topic || !site) {
+  if (!view) {
     return null;
   }
 
-  const links = topic.links.map(link => site.links[link]);
+  const links = view.links;
   const phones = links.filter(link => link.type === "phone").map((link, index) => <LinkPhone key={index}>{link}</LinkPhone>);
   const internal = links.filter(link => link.type === "internal").map((link, index) => <LinkInternal key={index}>{link}</LinkInternal>)
   const external = links.filter(link => link.type === "external").map((link, index) => <LinkExternal key={index}>{link}</LinkExternal>)
