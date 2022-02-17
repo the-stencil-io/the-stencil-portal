@@ -15,6 +15,9 @@ const useLocale = () => {
 const useSite = () => {
   return useContext().site;
 }
+const useViews = () => {
+  return useContext().views;
+}
 const useTopics = (): Record<string, Api.Topic> => {
   const site = useSite();
   if(site) {
@@ -31,4 +34,4 @@ const useLink = (linkId: string): Api.TopicLink => {
   return site.links[linkId];
 }
 
-export { useContext, useLocale, useSite, useTopics, useLink };
+export { useContext, useLocale, useSite, useTopics, useLink, useViews };

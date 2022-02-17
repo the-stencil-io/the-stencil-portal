@@ -1,5 +1,8 @@
 import * as Api from '../../service';
 import { SiteActionOverrides, SiteActions } from './ContextTypes';
+import SiteCache from './SiteCache';
+
+
 
 
 interface SiteStateData {
@@ -7,6 +10,7 @@ interface SiteStateData {
   locale: string;
   site?: Api.Site;
   parent?: SiteState;
+  views: Record<Api.TopicId, Api.TopicView>;
 }
 
 interface SiteState extends SiteStateData {
@@ -20,6 +24,7 @@ class ImmutableSiteState implements SiteState {
   private _loaded: boolean;
   private _site?: Api.Site;
   private _parent?: SiteState;
+  private _views: Record<Api.TopicId, Api.TopicView>;
 
   constructor(locale: string, init: {
     site?: Api.Site;
@@ -29,6 +34,10 @@ class ImmutableSiteState implements SiteState {
     this._loaded = init.site != null && init.site.loader !== true;
     this._site = init.site;
     this._parent = init.parent;
+    this._views = init.site ? new SiteCache(init.site).topics : {};
+  }
+  get views() {
+    return this._views;
   }
   getBlob(topic: Api.Topic) {
     if (!this._site) {
@@ -51,6 +60,7 @@ class ImmutableSiteState implements SiteState {
   }
   init(arg: {}): SiteStateData {
     const newState: SiteStateData = {
+      views: this._views,
       loaded: this._loaded,
       site: this._site,
       parent: this,

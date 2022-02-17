@@ -4,7 +4,7 @@ import { useTabs as useTabsAlias } from './context/tabs/TabsContext';
 import { useSecondary as useSecondaryAlias } from './context/secondary/SecondaryContext';
 import { siteTheme } from './theme/siteTheme';
 import { PortalApp } from './app/PortalApp';
-import { ServiceConfig, Service, TopicHeading, TopicId, TopicLinkId, TopicLink, Topic, Blob, Site, TopicLinkType, LocaleCode, FallbackSites, createService as createServiceAs } from './service';
+import { ServiceConfig, Service, TopicHeading, TopicId, TopicLinkId, TopicLink, TopicView, Topic, Blob, Site, TopicLinkType, LocaleCode, FallbackSites, createService as createServiceAs } from './service';
 import intlMessages from './intl';
 
 import {
@@ -84,7 +84,7 @@ declare namespace Portal { //ONLY can export interfaces and types with 'declare 
     SiteContextType, SiteState, SiteProviderProps, SiteActionOverrides,
     BreakpointMode, BreakpointContextType,
     LocaleCode, FallbackSites, 
-    ServiceConfig, Service, TopicHeading, TopicLink, Topic, Blob, Site, TopicLinkType,
+    ServiceConfig, Service, TopicHeading, TopicLink, Topic, TopicView, Blob, Site, TopicLinkType,
     ToolbarProps, PrimaryProps, SecondaryProps,
     TopicsProviderProps, TopicsActionOverrides, TopicsContextType, TopicsState
   };

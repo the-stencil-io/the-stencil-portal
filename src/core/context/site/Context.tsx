@@ -47,6 +47,7 @@ const SiteContext = React.createContext<SiteContextType>({
   service: {} as any,
   locale: "en",
   actions: {} as any,
+  views: {},
   getBlob: (topic: Topic) => { console.log(topic); return undefined },
   setSite: (site?: Site) => console.log(site),
   setLocale: (newLocale: string) => console.log(newLocale),

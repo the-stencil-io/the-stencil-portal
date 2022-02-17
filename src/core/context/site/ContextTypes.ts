@@ -4,6 +4,7 @@ import { SiteState } from './contextReducer';
 interface SiteContextType extends SiteActions {
   service: Api.Service;
   site?: Api.Site;
+  views: Record<Api.TopicId, Api.TopicView>
   locale: string;
   getBlob: (topic: Api.Topic) => Api.Blob | undefined;
   actions: SiteActions;
@@ -29,6 +30,7 @@ const initContext = (
     service: service,
     locale: state.locale,
     site: state.site,
+    views: state.views,
     getBlob: (topic) => state.getBlob(topic),
     actions: actions,
     setSite: (site?: Api.Site, newLocale?: Api.LocaleCode) => actions.setSite(site, newLocale),

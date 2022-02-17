@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Api from '../../service';
-import { useSite } from '../site/useContext';
+import { useViews, useSite } from '../site/useContext';
 import { TopicsContext } from './Context';
 import { TopicsContextType } from './ContextTypes';
 
@@ -10,9 +10,9 @@ const useContext = () => {
   return result;
 }
 const useTopic = () => {
-  const site = useSite();
+  const views = useViews();
   const topicId = useContext().topic;
-  return topicId ? site?.topics[topicId] : undefined;
+  return topicId ? views.topics[topicId] : undefined;
 }
 const useBlob = () => {
   const site = useSite();
