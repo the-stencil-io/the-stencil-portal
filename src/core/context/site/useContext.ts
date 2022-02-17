@@ -15,7 +15,7 @@ const useLocale = () => {
 const useSite = () => {
   return useContext().site;
 }
-const useViews = () => {
+const useViews = (): Record<Api.TopicId, Api.TopicView> => {
   return useContext().views;
 }
 const useTopics = (): Record<string, Api.Topic> => {

@@ -9,20 +9,11 @@ const useContext = () => {
   const result: TopicsContextType = React.useContext(TopicsContext);
   return result;
 }
-const useTopic = () => {
-  const views = useViews();
+const useTopic = (): Api.TopicView | undefined => {
+  const views: Record<Api.TopicId, Api.TopicView> = useViews();
   const topicId = useContext().topic;
-  return topicId ? views.topics[topicId] : undefined;
+  return topicId ? views[topicId] : undefined;
 }
-const useBlob = () => {
-  const site = useSite();
-  const topic = useTopic();
-  if(!site || !topic || !topic.blob) {
-    return null;
-  }
-  return site.blobs[topic.blob];
-}
-
 const useLink = (linkId: string): Api.TopicLink => {
   const site = useSite();
   if(!site){
@@ -31,4 +22,4 @@ const useLink = (linkId: string): Api.TopicLink => {
   return site.links[linkId];
 }
 
-export { useContext, useTopic, useBlob, useLink };
+export { useContext, useTopic, useLink };

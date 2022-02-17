@@ -67,7 +67,7 @@ import {
   TopicsState
 } from './context/topics/contextReducer';
 import {
-  useContext as useTopicsContext, useBlob as useBlobContext, useTopic as useTopicContext
+  useContext as useTopicsContext, useTopic as useTopicContext
 } from './context/topics/useContext';
 
 
@@ -107,7 +107,6 @@ namespace Portal { //export the constants
   export const useSecondary = useSecondaryAlias;
   export const useTopics = useTopicsContext;
   export const useSite = useSiteContext;
-  export const useBlob = useBlobContext;
   export const useTopic = useTopicContext;
   
   
