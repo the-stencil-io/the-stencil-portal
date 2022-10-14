@@ -1,5 +1,7 @@
 import { Theme, Options } from '@mui/material';
 import { SxProps } from '@mui/system';
+import { BreakpointMode } from './breakpoint/BreakpointContext';
+
 
 type AppId = string;
 type MediaQuery = (queryInput: string | ((theme: Theme) => string), options?: Options) => boolean;
@@ -7,11 +9,11 @@ type StyleQuery = (props: { drawerOpen: boolean }) => SxProps;
 
 interface App {
   id: AppId;
-  components: {
+  components:(mode: BreakpointMode) => ({
     toolbar: React.ElementType<ToolbarProps>;
     primary: React.ElementType<PrimaryProps>;
     secondary: React.ElementType<SecondaryProps>;
-  },
+  }),
   config: {
     mobile: BreakpointConfig,
     tablet: BreakpointConfig,

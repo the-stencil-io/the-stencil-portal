@@ -26,7 +26,7 @@ const scroll: SxProps = {
 
 const app: Portal.App = {
   id: "demoApp",
-  components: { primary: Primary, secondary: Secondary, toolbar: Toolbar },
+  components: (mode: Portal.BreakpointMode) => ({ primary: Primary, secondary: Secondary, toolbar: Toolbar }),
   config: {
     mobile: {
       breakpoint: (theme, query) => query(theme.breakpoints.down("sm")),

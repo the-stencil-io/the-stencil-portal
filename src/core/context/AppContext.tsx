@@ -21,7 +21,7 @@ const AppInit: React.FC<{ children: API.App }> = ({ children }) => {
     console.log(`portal: app container/layout Init: '${children.id}', mode: ${mode}`);
 
     const { config, components } = children;
-    const { primary, secondary, toolbar } = components;
+    const { primary, secondary, toolbar } = components(mode);
 
     if (mode === 'MOBILE') {
       return (<Container primary={primary} secondary={secondary} toolbar={toolbar} config={config.mobile} />);
