@@ -58,6 +58,8 @@ interface Service {
 }
 
 interface TopicView {
+  id: TopicId;
+  name: string;
   topic: Topic;
   blob?: Blob  
   parent?: Topic;

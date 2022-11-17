@@ -34,7 +34,7 @@ export default class SiteCache {
     const phones: Api.TopicLink[] = links.filter(t => t.type === "phone");
     const workflows: Api.TopicLink[] = links.filter(t => t.type === "dialob" || t.type === "workflow");
     
-    return new ImmutableTopicView({ topic, blob, parent, children, links, internalExternal, phones, workflows });
+    return new ImmutableTopicView({ id: topic.id, name: topic.name, topic, blob, parent, children, links, internalExternal, phones, workflows });
   }
 }
 
@@ -60,6 +60,8 @@ class ImmutableTopicView implements Api.TopicView {
     this._phones = init.phones;
     this._workflows = init.workflows;
   }
+  get id(): Api.TopicId { return this._topic.id };
+  get name(): string { return this._topic.name };
   get topic(): Api.Topic { return this._topic };
   get blob(): Api.Blob|undefined { return this._blob }  
   get parent(): Api.Topic|undefined { return this._parent }
