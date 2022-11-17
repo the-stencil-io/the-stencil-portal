@@ -21,5 +21,9 @@ const useLink = (linkId: string): Api.TopicLink => {
   }
   return site.links[linkId];
 }
+const useBlob = (): Api.Blob | undefined => {
+  const topic = useTopic();
+  return topic ? topic.blob : undefined;
+}
 
-export { useContext, useTopic, useLink };
+export { useContext, useTopic, useLink , useBlob};

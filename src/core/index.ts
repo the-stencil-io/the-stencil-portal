@@ -67,7 +67,9 @@ import {
   TopicsState
 } from './context/topics/contextReducer';
 import {
-  useContext as useTopicsContext, useTopic as useTopicContext
+  useContext as useTopicsContext, 
+  useTopic as useTopicContext, 
+  useBlob as useBlobContext
 } from './context/topics/useContext';
 
 
@@ -108,7 +110,7 @@ namespace Portal { //export the constants
   export const useTopics = useTopicsContext;
   export const useSite = useSiteContext;
   export const useTopic = useTopicContext;
-  
+  export const useBlob = useBlobContext;  
   
   export const DefaultApp = PortalApp;
   export const defaultTheme = siteTheme;
