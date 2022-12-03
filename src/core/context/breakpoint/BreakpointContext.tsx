@@ -13,21 +13,26 @@ const BreakpointContext = React.createContext<BreakpointContextType>({
 
 const BreakpointProvider: React.FC<{ app: App, children: React.ReactElement }> = (props) => {
   const theme = useTheme();
-  const config = props.app.config;
-  const mobile = config.mobile.breakpoint(theme, useMediaQuery);
-  const tablet = config.tablet.breakpoint(theme, useMediaQuery);
-  //const desktop = config.desktop.breakpoint(theme, useMediaQuery);
-  console.log(`portal: breakpoints, mobile: ${mobile}, tablet: ${tablet} `);
-  let mode: BreakpointMode = "DESKTOP"; 
-  if(mobile) {
-    mode = "MOBILE";  
-  } else if(tablet) {
-    mode = "TABLET"; 
-  }
+  const { config } = props.app;
+  const { mobile, tablet } = config;
+
+  const mode = React.useMemo(() => {
+    const isMobile = mobile.breakpoint(theme, useMediaQuery);
+    const isTablet = tablet.breakpoint(theme, useMediaQuery);
+    //const desktop = config.desktop.breakpoint(theme, useMediaQuery);
+    console.log(`portal: breakpoints, mobile: ${isMobile}, tablet: ${isTablet} `);
+    let mode: BreakpointMode = "DESKTOP";
+    if (isMobile) {
+      mode = "MOBILE";
+    } else if (isTablet) {
+      mode = "TABLET";
+    }
+    return mode;
+  }, [theme, mobile, tablet])
 
   return (<BreakpointContext.Provider value={{ mode }}>
-      {props.children}
-    </BreakpointContext.Provider>);
+    {props.children}
+  </BreakpointContext.Provider>);
 }
 
 const useBreakpoint = () => {

@@ -6,6 +6,7 @@ import { siteTheme } from './theme/siteTheme';
 import { PortalApp } from './app/PortalApp';
 import { ServiceConfig, Service, TopicHeading, TopicId, TopicLinkId, TopicLink, TopicView, Topic, Blob, Site, TopicLinkType, LocaleCode, FallbackSites, createService as createServiceAs } from './service';
 import intlMessages from './intl';
+import PortalStyles from './styles';
 
 import {
   App, AppId, MediaQuery, StyleQuery, BreakpointConfig, ToolbarProps, PrimaryProps, SecondaryProps
@@ -76,7 +77,7 @@ import {
 // import { StyledDialog, StyledDialogProps } from './styles/StyledDialog';
 
 
-declare namespace Portal { //ONLY can export interfaces and types with 'declare namespace'. DOES NOT COMPILE with constants
+declare namespace Portal  { //ONLY can export interfaces and types with 'declare namespace'. DOES NOT COMPILE with constants
   export { 
     TopicId, TopicLinkId,
     AppProviderProps, App, AppId, MediaQuery, StyleQuery, BreakpointConfig,
@@ -88,9 +89,8 @@ declare namespace Portal { //ONLY can export interfaces and types with 'declare 
     LocaleCode, FallbackSites, 
     ServiceConfig, Service, TopicHeading, TopicLink, Topic, TopicView, Blob, Site, TopicLinkType,
     ToolbarProps, PrimaryProps, SecondaryProps,
-    TopicsProviderProps, TopicsActionOverrides, TopicsContextType, TopicsState
+    TopicsProviderProps, TopicsActionOverrides, TopicsContextType, TopicsState, PortalStyles
   };
-  export {  }
 }
 
 namespace Portal { //export the constants
@@ -116,6 +116,7 @@ namespace Portal { //export the constants
   export const defaultTheme = siteTheme;
   export const messages = intlMessages;
   export const createService = createServiceAs;
+  export const Styles = PortalStyles;
 }
 
 export default Portal;

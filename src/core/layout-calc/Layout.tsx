@@ -24,40 +24,46 @@ const StyledMain = styled("main")(() => ({
   height: "100%"
 }));
 
+
 const ContainerComponents: React.FC<{ components: ContainerProps, calc: LayoutCalcCallbackProps }> = ({ components, calc }) => {
   const layout = useDrawer();
   const drawerOpen = layout.session.drawer;
-  
-  const { 
-    primary: Primary, 
-    secondary: Secondary,
-    toolbar: Toolbar 
-  } = components;
-  
-  const {main} = calc;
 
-  const primaryWindow = React.useMemo(() => <Primary sx={main}/>, [Primary, main]);
+  const {
+    primary: Primary,
+    secondary: Secondary,
+    toolbar: Toolbar
+  } = components;
+
+  const { main, drawerWidth, secondary } = calc;
+  const primaryWindow = React.useMemo(() => <Primary sx={main} />, [Primary, main]);
   const secondaryWindow = React.useMemo(() => <Secondary />, [Secondary]);
   const toolbarWindow = React.useMemo(() => <Toolbar />, [Toolbar]);
+  const { toolbarHeight } = components.config;
 
-
-  return (<>
-    <StyledAppBar position="fixed">
-      <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} sx={{ alignItems: 'self-start' }}>
+  const top = React.useMemo(() => {
+    return (<StyledAppBar position="fixed">
+      <StyledToolbar disableGutters toolbarHeight={toolbarHeight} sx={{ alignItems: 'self-start' }}>
         {toolbarWindow}
       </StyledToolbar>
-    </StyledAppBar>
+    </StyledAppBar>);
+  }, [toolbarWindow, toolbarHeight]);
 
-    <StyledDrawer variant="permanent" open={drawerOpen} drawerWidth={calc.drawerWidth}>
-      <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} />
-      {drawerOpen ? (<Box sx={calc.secondary}>{secondaryWindow}</Box>) : null}
-    </StyledDrawer>
+  const drawer = React.useMemo(() => {
+    return (<StyledDrawer variant="permanent" open={drawerOpen} drawerWidth={drawerWidth}>
+      <StyledToolbar disableGutters toolbarHeight={toolbarHeight} />
+      {drawerOpen ? (<Box sx={secondary}>{secondaryWindow}</Box>) : null}
+    </StyledDrawer>);
+  }, [toolbarHeight, drawerWidth, drawerOpen, secondary, secondaryWindow]);
 
-    <StyledMain>
-      <StyledToolbar disableGutters toolbarHeight={components.config.toolbarHeight} />
+  const content = React.useMemo(() => {
+    return (<StyledMain>
+      <StyledToolbar disableGutters toolbarHeight={toolbarHeight} />
       {primaryWindow}
-    </StyledMain>
-  </>)
+    </StyledMain>);
+  }, [toolbarHeight, primaryWindow]);
+
+  return (<>{top}{drawer}{content}</>)
 }
 
 const Container: React.FC<ContainerProps> = (components) => {

@@ -18,13 +18,14 @@ interface LayoutCalcProps {
   children: (props: LayoutCalcCallbackProps) => React.ReactNode
 }
 
+const MAX_SPACE = { display: 'flex', height: "100vh" };
+
 const LayoutCalc: React.FC<LayoutCalcProps> = ({ config, children }) => {
 
   const layout = useDrawer();
   const drawerOpen = layout.session.drawer;
   const theme = useTheme();
   const { drawerWidth: drawerWidthCallback, main: mainCallback, toolbarHeight, secondary: secondaryCallback } = config;
-
 
 
   // style calcs  
@@ -46,10 +47,7 @@ const LayoutCalc: React.FC<LayoutCalcProps> = ({ config, children }) => {
   
   const contents = React.useMemo(() => children({ main, secondary, drawerWidth }), [main, secondary, drawerWidth, children]);
 
-  return (<Box sx={{ display: 'flex', height: "100vh" }}>
-    <CssBaseline />
-    {contents}
-  </Box>);
+  return (<Box sx={MAX_SPACE}><CssBaseline />{contents}</Box>);
 }
 
 export { LayoutCalc, LayoutCalcProps, LayoutCalcCallbackProps };

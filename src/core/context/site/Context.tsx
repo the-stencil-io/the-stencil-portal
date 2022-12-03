@@ -1,5 +1,5 @@
 import React from 'react';
-import { Service, Topic, TopicLink, Site } from '../../service';
+import { Service, Topic, Site } from '../../service';
 import { contextReducer, SiteState, ImmutableSiteState, SiteReducerDispatch } from './contextReducer';
 import { SiteContextType, initContext, SiteActionOverrides } from './ContextTypes';
 
