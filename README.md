@@ -1,3 +1,6 @@
+# This repository has been deprecated and is no longer maintained.
+Codebase has been moved and is now maintained in https://github.com/digiexpress-io/digiexpress-parent
+
 # the-stencil-portal
 
 The Stencil Portal is a layout component that comprises three core elements:  
